@@ -5,6 +5,14 @@
 
 // GLOBALE DATENFELDER
 
+////////////////////////////////
+// Eingabefelder Registration //
+////////////////////////////////
+
+var checkMail;
+var checkPW;
+var checkUser;
+
 //////////////////////
 // Benötigte Bilder //
 //////////////////////
@@ -661,13 +669,14 @@ function showEXPGain (currentEXP, newEXP) {
 }
 
 var timeShowFieldWinAnim = 0;
-function showFieldWinAnimation (param) {
+function showFieldWinAnimation (clickedTile) {
+
   //TO-DO choralSound();
   var frame1 = document.createElement("div");
   frame1.className = "winFrame1";
   frame1.id = "winFrame1";
-  var x = param.pXPosition;
-  var y = param.pYPosition;
+  var x = clickedTile.getXPosition();
+  var y = clickedTile.getYPosition();
   document.getElementById("field").appendChild(frame1);
   document.getElementById("winFrame1").style.top=y+"px";
   document.getElementById("winFrame1").style.left=x+"px";
@@ -939,6 +948,8 @@ $(document).ready(function(){
 
 function showEasyKonfig() {
 
+  alert("easy");
+
   $(document).ready(function(){
 
     $("#easyButton").css({"backgroundPosition": "-240px 0px"});
@@ -987,6 +998,8 @@ function showEasyKonfig() {
 }
 
 function showModerateKonfig() {
+
+  alert("moderate");
 
   $(document).ready(function(){
 
@@ -1046,6 +1059,8 @@ function showModerateKonfig() {
 }
 
 function showStrongKonfig() {
+
+  alert("strong");
 
   $(document).ready(function(){
 
@@ -1115,6 +1130,8 @@ function showStrongKonfig() {
 }
 
 function showInsaneKonfig() {
+
+  alert("insane");
 
   $(document).ready(function(){
 
@@ -1191,4 +1208,119 @@ function showInsaneKonfig() {
 
     });
   })
+}
+
+function visibilitySwitcher(element1,element2) {
+
+  $(document).ready(function(){
+    $(element1).css({'visibility': 'visible'}); 
+    $(element2).css({'visibility': 'hidden'});
+  });
+
+}
+
+function register_clicked(){
+  var username = $("#reg_username").val();
+  var email = $("#reg_email").val();
+  var password = $("#reg_password").val();
+  var confirm_password = $("#confirm_reg_password").val();
+
+  checkMail = checkEmail(email);
+  checkPW = checkPassword(password,confirm_password);
+
+  if(username == "")
+  {
+    alert("Insert Username please!");
+  }
+  else if(email=="")
+  {
+    alert("Insert E-Mail Adress please!");
+  }
+  else if(password=="" || confirm_password=="")
+  {
+    alert("Insert Passwords please!");
+  }
+  else if(checkMail == false)
+  {
+    alert("Invalid E-Mail Adress!");
+  }
+  else if(checkPW == false)
+  {
+    alert("Passwords doesn't match!");
+  }
+  else
+  {
+    clixxx(5000,{u: username, e: email, p1: password, p2: confirm_password}); // Datenbank abfrage ob Username schon Existiert
+  }
+
+}
+
+function checkEmail(email) {
+
+  var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+  if (!filter.test(email)) 
+  {
+    return false;
+  }
+  else
+  {
+    return true;
+  }
+
+}
+
+function checkPassword(password1,password2) {
+  
+  if(password1 == password2)
+  {
+    return true;
+  }
+  else if (password1 != password2)
+  { 
+    return false;
+  }
+
+}
+
+function checkRegistration(dbcheck) {
+
+  if(dbcheck.userExist==false)
+  {
+    var username = $("#reg_username").val();
+    var email = $("#reg_email").val();
+    var password = $("#reg_password").val();
+    var confirm_password = $("#confirm_reg_password").val();
+    clixxx('5001', {u: username, e: email, p1: password, p2: confirm_password});
+  }
+  else if(dbcheck.userExist==true)
+  {
+    alert("Username already exist!");
+  }
+  
+}
+
+function registration(dbcheck){
+    if(dbcheck.check==true)
+    { 
+      alert("Registration successfully!"); 
+      visibilitySwitcher("#login","#register");
+    }
+    else
+    { alert("Error! " + dbcheck.errorMsg); }
+}
+
+function login_clicked(){
+  var username = $("#username").val();
+  var password = $("#password").val();
+
+  if(username==""){
+    alert("Insert Username please!");
+  }
+  else if(password==""){
+    alert("Insert Password please!");
+  }
+  else{
+    clixxx('5002', {u : username, p : password});
+  }
 }

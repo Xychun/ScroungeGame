@@ -7,6 +7,10 @@
 //Start auf port 9000
 var io = require('socket.io').listen(9000);
 var $ = require('jquery').create();
+
+// mysql ansteuerung über die variable mysql
+var mysql = require('mysql');
+
 //wenn eine neue verbindung mit einem neuen client entsteht
 io.sockets.on('connection', function (socket) {
 
@@ -272,6 +276,57 @@ io.sockets.on('connection', function (socket) {
 
     x = 480; 
   });
+
+  socket.on('5000',function(anonym){ // Username überprüfen
+    sql = "SELECT name FROM user WHERE name="+mysql.escape(anonym.u);
+
+    selectDB(sql);
+    setTimeout(function(){
+
+      var check = false;
+      if (mysql.escape(anonym.u)=="'"+getName(0)+"'")
+      { check = true; }
+
+      socket.emit('5000',{userExist: check});
+    },300);    
+  });
+
+  socket.on('5001',function(anonym){ // Neuen User in die Datenbank speichern
+
+    var falseData=checkFalseInsertReg(anonym);
+
+    if(falseData==false)
+    {
+      sql = "INSERT INTO user (name, email, password) VALUES ("+mysql.escape(anonym.u)+", '"+anonym.e+"', '"+anonym.p1+"')";
+
+      insertDB(sql); // Übergibt die Daten an die Datenbank-Funktion()
+
+      setTimeout(function(){socket.emit('5001',{check: getQueryCheck(), errorMsg: getQueryError});
+      },300); 
+
+    }
+  });
+
+  socket.on('5002',function(anonym){ // Versuche User einzuloggen
+
+    var falseData=checkFalseInsertLogin(anonym);
+
+    if(falseData==false)
+    {
+      sql = "SELECT name,password FROM user WHERE name="+mysql.escape(anonym.u)+" AND password="+mysql.escape(anonym.p);
+
+      selectDB(sql); // Übergibt die Daten an die Datenbank-Funktion()
+      setTimeout(function(){
+
+        var check = false;
+        if (mysql.escape(anonym.u)=="'"+getName(0)+"'" && mysql.escape(anonym.p)=="'"+getPassword(0)+"'")
+        { check = true; }
+
+        socket.emit('5002',{check: check});
+      },300); 
+    }    
+  });
+
 });
 
 
@@ -310,6 +365,15 @@ io.sockets.on('connection', function (socket) {
 
 
 /* GLOBALE DATENFELDER */
+
+/////////////////////////////////
+// Globale Datenbank Variablen //
+/////////////////////////////////
+
+var Username = new Array();
+var Password = new Array();
+var queryCheck = false;
+var queryError = null;
 
 //////////////////////////////
 // Benötigt für Spiel-Logik //
@@ -2746,7 +2810,7 @@ function fight(status){
     initMovePlayer(idClickedTile, clickedTile);
         //Animation zeigen bei Sieg
     // showFieldWinAnimation(clickedTile); CLIENT(67)
-    io.sockets.emit('67', {pXPosition: clickedTile.getXPosition(), pYPosition: clickedTile.getYPosition()});
+    io.sockets.emit('67', {pClickedTile: clickedTile});
         //Dem Spieler die erhaltenen EXP gutschreiben
     setTimeout(function(){EXPGain(exp);}, 2500);
         //Der Kachel sagen, dass sie nun kein Monster mehr hat
@@ -2865,4 +2929,115 @@ function changeButtonsMonsterChooser(trackResult) {
 
   }
 
+}
+
+function selectDB(sql){
+  var connection = mysql.createConnection('mysql://user:123@localhost/runemastery');
+  connection.connect();
+  
+  connection.query(sql, function(err, rows, fields) {
+      if (err) throw err;
+      
+      for (var i in rows) {
+          setName(rows[i].name,i);
+          setPassword(rows[i].password,i);
+      }
+  });
+  connection.end();
+}
+
+function select_Monster_DB(sql){
+  var connection = mysql.createConnection('mysql://user:123@localhost/runemastery');
+  connection.connect();
+  
+  connection.query(sql, function(err, rows, fields) {
+      if (err) throw err;
+      
+      for (var i in rows) {
+          setName(rows[i].name,i);
+          setPassword(rows[i].password,i);
+      }
+  });
+  connection.end();
+}
+
+function insertDB(sql){
+  var connection = mysql.createConnection('mysql://user:123@localhost/runemastery');
+  connection.connect();
+  
+  connection.query(sql, function(err, rows, fields) {
+      if (err) 
+      {
+        setQueryCheck(false);
+        setQueryError(err);
+        throw err;
+      }
+      else
+      { setQueryCheck(true); }
+  });
+  connection.end();
+}
+
+function checkFalseInsertReg(insert) {
+  var check = false;
+  var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  if(insert.e=="")
+  { return true; }
+  if(!filter.test(insert.e)) 
+  { return true; }  
+  if(insert.p1=="" || insert.p2=="")
+  { return true; }
+  if(insert.p1 != insert.p2)
+  { return true; }
+  if(insert.u=="")
+  { return true; }
+
+  return check;
+}
+
+function checkFalseInsertLogin(insert) {
+  var check = false;
+ 
+  if(insert.u=="")
+  { return true; }
+  if(insert.p=="")
+  { return true; }
+
+  return check;
+}
+
+function setName(name,i) {
+    Username[i]=name;
+}
+
+function getName(i) {
+    return Username[i];
+}
+
+function setPassword(password,i) {
+    Password[i]=password;
+}
+
+function getPassword(i) {
+    return Password[i];
+}
+
+function getDataCount() {
+    return Data.length;
+}
+
+function setQueryCheck(check){
+  queryCheck=check;
+}
+
+function getQueryCheck(){
+  return queryCheck;
+}
+
+function setQueryError(error){
+  queryError=error;
+}
+
+function getQueryError(){
+  return queryError;
 }

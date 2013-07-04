@@ -350,7 +350,7 @@ socket.on('66',function(anonym){
 
 //Server sendet EVENT 67
 socket.on('67',function(anonym){
-	showFieldWinAnimation(anonym);
+	showFieldWinAnimation(anonym.pClickedTile);
 });
 
 //Server sendet EVENT 68
@@ -373,7 +373,6 @@ socket.on('71',function(anonym){
 	showInsaneKonfig();
 });
 
-
 //Server sendet EVENT 1000
 socket.on('1000',function(anonym){
 	startFightRoutine(0, 0);
@@ -384,12 +383,23 @@ socket.on('2000',function(anonym){
 	startFight(anonym);
 });
 
+//Server sendet EVENT 5000
+socket.on('5000',function(anonym){	
+	checkRegistration(anonym);
+});
 
+//Server sendet EVENT 5001
+socket.on('5001',function(anonym){	
+	registration(anonym);
+});
 
-
-
-
-
-
-
-
+//Server sendet EVENT 5000
+socket.on('5002',function(anonym){	
+	if(anonym.check==true){
+		alert("Login successfully!");
+		visibilitySwitcher('#loged_in','#login');
+	}
+	else{
+		alert("Login failed!");
+	}
+});
