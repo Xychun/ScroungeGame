@@ -12,53 +12,12 @@ socket.on('0',function(anonym){
 
 //Server sendet EVENT 1
 socket.on('1',function(anonym){
-	LevelUp();
+	$("#LvlUpMarker").css("visibility", "hidden");
+  	$("#lvl").css("visibility", "visible");
 });
 
-//Server sendet EVENT 2
-socket.on('2',function(anonym){
-	statsIncrement(0); update(0);
-});
 
-//Server sendet EVENT 3
-socket.on('3',function(anonym){
-	statsIncrement(2); update(2);
-});
 
-//Server sendet EVENT 4
-socket.on('4',function(anonym){
-	statsIncrement(4); update(4);
-});
-
-//Server sendet EVENT 5
-socket.on('5',function(anonym){
-	statsIncrement(7); update(7);
-});
-
-//Server sendet EVENT 6
-socket.on('6',function(anonym){
-	statsIncrement(9); update(9);
-});
-
-//Server sendet EVENT 7
-socket.on('7',function(anonym){
-	statsIncrement(11); update(11);
-});
-
-//Server sendet EVENT 8
-socket.on('8',function(anonym){
-	statsIncrement(13); update(13);
-});
-
-//Server sendet EVENT 9
-socket.on('9',function(anonym){
-	statsIncrement(15); update(15);
-});
-
-//Server sendet EVENT 10
-socket.on('10',function(anonym){
-	statsIncrement(17); update(17);
-});
 
 //Server sendet EVENT 11
 socket.on('11',function(anonym){
@@ -211,7 +170,7 @@ socket.on('43',function(anonym){
 
 //Server sendet EVENT 44
 socket.on('44',function(anonym){
-	//TO-DO clickSound();
+	clickSound();
 });
 
 //Server sendet EVENT 45
@@ -221,7 +180,7 @@ socket.on('45',function(anonym){
 
 //Server sendet EVENT 46
 socket.on('46',function(anonym){
-	//TO-DO StabSound();
+	StabSound();
     document.getElementById(anonym.elementNumber).src = "Bilddaten/Spielfeld/MonsterImg.png";
 });
 
@@ -238,7 +197,7 @@ socket.on('48',function(anonym){
 
 //Server sendet EVENT 49
 socket.on('49',function(anonym){
-	//TO-DO swordSound(); 
+	swordSound(); 
 });
 
 //Server sendet EVENT 50
@@ -280,7 +239,7 @@ socket.on('57',function(anonym){
     setTimeout(function(){$(".c").toggleClass("ca");},1000);
     $(".c").toggleClass("ca");
         //auditives Feedback
-    //TO-DO gotHitSound();
+    gotHitSound();
 });
 
 //Server sendet EVENT 58
@@ -290,7 +249,7 @@ socket.on('58',function(anonym){
     $(".m").toggleClass("ma");
 
       //auditives+visuelles Feedback
-    //TO-DO batGotHitSound();
+    batGotHitSound();
     showFightAnimation("HIT");
 });
 
@@ -301,8 +260,7 @@ socket.on('59',function(anonym){
 
 //Server sendet EVENT 60
 socket.on('60',function(anonym){
-	alert('SOCKET ON 60');
-	//TO-DO dieSound();
+	dieSound();
 	$(".rightFight").animate({width:'toggle'}, 2500, "easeOutExpo");
     $(".leftFight").animate({width:'toggle'}, 2500, "easeOutExpo");
     setTimeout(function(){$("#fight").css("visibility", "hidden"); $("#phaseFrame").css("visibility", "hidden");}, 2500);
@@ -370,6 +328,51 @@ socket.on('70',function(anonym){
 
 //Server sendet EVENT 71
 socket.on('71',function(anonym){
+	showInsaneKonfig();
+});
+
+//Server sendet EVENT 72
+socket.on('72',function(anonym){
+	$("#blocker").css("visibility", "hidden");
+});
+
+//Server sendet EVENT 73
+socket.on('73',function(anonym){
+	$("#blocker").css("visibility", "visible");
+});
+
+//Server sendet EVENT 74
+socket.on('74',function(anonym){
+	$(anonym.pId).html(anonym.pInput);
+});
+
+//Server sendet EVENT 75
+socket.on('75',function(anonym){
+	blockSound();
+});
+
+//Server sendet EVENT 76
+socket.on('76',function(anonym){
+	swordDrawSound();
+});
+
+//Server sendet EVENT 77
+socket.on('77',function(anonym){
+	showInsaneKonfig();
+});
+
+//Server sendet EVENT 78
+socket.on('78',function(anonym){
+	showInsaneKonfig();
+});
+
+//Server sendet EVENT 79
+socket.on('79',function(anonym){
+	showInsaneKonfig();
+});
+
+//Server sendet EVENT 80
+socket.on('80',function(anonym){
 	showInsaneKonfig();
 });
 

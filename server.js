@@ -15,44 +15,47 @@ io.sockets.on('connection', function (socket) {
   });
 
   socket.on('1',function(anonym){
-  	io.sockets.emit('1');
+  	LevelUp();
+  });
+
+  socket.on('2',function(anonym){
+    statsIncrement(0); update(0);
   });
 
   socket.on('3',function(anonym){
-  	io.sockets.emit('3');
+  	statsIncrement(2); update(2);
   });
 
   socket.on('4',function(anonym){
-    io.sockets.emit('4');
+    statsIncrement(4); update(4);
   });
 
   socket.on('5',function(anonym){
-    io.sockets.emit('5');
+    statsIncrement(7); update(7);
   });
 
   socket.on('6',function(anonym){
-    io.sockets.emit('6');
+    statsIncrement(9); update(9);
   });
 
   socket.on('7',function(anonym){
-    io.sockets.emit('7');
+    statsIncrement(11); update(11);
   });
 
   socket.on('8',function(anonym){
-    io.sockets.emit('8');
+    statsIncrement(13); update(13);
   });
 
   socket.on('9',function(anonym){
-    io.sockets.emit('9');
+    statsIncrement(15); update(15);
   });
 
   socket.on('10',function(anonym){
-    io.sockets.emit('10');
+    statsIncrement(17); update(17);
   });
 
   // 11-22 Kampf
   socket.on('11',function(anonym){
-    console.log('PARAMETER ele_name:' + anonym.ele_name);
     check(anonym.ele_name);
   });
 
@@ -104,7 +107,6 @@ io.sockets.on('connection', function (socket) {
   });
 
   socket.on('25',function(anonym){
-    console.log('SOCKET.ON: 25');
     io.sockets.emit('25', anonym);
   });
 
@@ -210,51 +212,39 @@ io.sockets.on('connection', function (socket) {
 
   // SOCKET 58 - ActionEvent/MethodeEmit
 
-  // SOCKET 58 - ActionEvent/MethodeEmit
+  // SOCKET 59 - ActionEvent/MethodeEmit
 
-  socket.on('60',function(anonym){
-    //
-  });
+  // SOCKET 60 - ActionEvent/MethodeEmit
 
-  socket.on('61',function(anonym){
-    //
-  });
+  // SOCKET 61 - ActionEvent/MethodeEmit
 
-  socket.on('62',function(anonym){
-    //
-  });
+  // SOCKET 62 - ActionEvent/MethodeEmit
 
-  socket.on('63',function(anonym){
-    //
-  });
+  // SOCKET 63 - ActionEvent/MethodeEmit
 
-  socket.on('64',function(anonym){
-    //
-  });
+  // SOCKET 64 - ActionEvent/MethodeEmit
 
-  socket.on('65',function(anonym){
-    //
-  });
+  // SOCKET 65 - ActionEvent/MethodeEmit
 
-  socket.on('66',function(anonym){
-    //
-  });
+  // SOCKET 66 - ActionEvent/MethodeEmit
 
-  socket.on('67',function(anonym){
-    //
-  });
+  // SOCKET 67 - ActionEvent/MethodeEmit
 
-  socket.on('68',function(anonym){
-    //
-  });
+  // SOCKET 68 - ActionEvent/MethodeEmit
 
-  socket.on('69',function(anonym){
-    //
-  });
+  // SOCKET 69 - ActionEvent/MethodeEmit
 
-  socket.on('70',function(anonym){
-    //
-  });
+  // SOCKET 70 - ActionEvent/MethodeEmit
+
+  // SOCKET 71 - ActionEvent/MethodeEmit
+
+  // SOCKET 72 - ActionEvent/MethodeEmit
+
+  // SOCKET 73 - ActionEvent/MethodeEmit
+
+  socket.on('74',function(anonym){
+    healPlayer();
+  });  
 
 
   socket.on('1000',function(anonym){
@@ -265,10 +255,10 @@ io.sockets.on('connection', function (socket) {
     startFightDifficulty = anonym.pDifficulty;
     loadStats();
     io.sockets.emit('2000', {pMeAttackC: me_attack_c, pMeDmgC: me_dmg_c, pRAttackC: r_attack_c, 
-    pRDmgC: r_dmg_c, pMaAttackC: ma_attack_c, pMaDmgC: ma_dmg_c, pLMinC: l_min_c, pLMaxC: l_max_c,
-    pMeAttackM: me_attack_m, pMeDmgM: me_dmg_m, pRAttackM: r_attack_m, pRDmgM: r_dmg_m, pMaAttackM: ma_attack_m,
-    pMaDmgM: ma_dmg_m, pLMinM: l_min_m, pLMaxM: l_max_m, pDim: dmin, pDmax: dmax, pAmin: amin, pAmax: amax,
-    pAbmin: abmin, pAbmax: abmax, pEsmin: esmin, pEsmax: esmax, pDifficulty: startFightDifficulty});
+      pRDmgC: r_dmg_c, pMaAttackC: ma_attack_c, pMaDmgC: ma_dmg_c, pLMinC: l_min_c, pLMaxC: l_max_c,
+      pMeAttackM: me_attack_m, pMeDmgM: me_dmg_m, pRAttackM: r_attack_m, pRDmgM: r_dmg_m, pMaAttackM: ma_attack_m,
+      pMaDmgM: ma_dmg_m, pLMinM: l_min_m, pLMaxM: l_max_m, pDim: dmin, pDmax: dmax, pAmin: amin, pAmax: amax,
+      pAbmin: abmin, pAbmax: abmax, pEsmin: esmin, pEsmax: esmax, pDifficulty: startFightDifficulty});
 
     x = 480; 
   });
@@ -1217,10 +1207,10 @@ function summonMonsters () {
 
                     default:
                   }*/
-      }
-    } (i), timeSummonMonsters);
-  } 
-  timeSummonMonsters = 0;
+                }
+              } (i), timeSummonMonsters);
+} 
+timeSummonMonsters = 0;
 }
 
 
@@ -1554,9 +1544,8 @@ function summonPlayers() {
 
     } (i), timeSummonPlayers);
 
+  }
 }
-}
-
 
 ////////////////////////////////////////
 // Methods for the course of the game //
@@ -1567,14 +1556,16 @@ function blockAction() {
 
   if(actionsBlocked) {
 
-    $("#blocker").css("visibility", "hidden");
+    // $("#blocker").css("visibility", "hidden"); CLIENT(72)
+    io.sockets.emit('72');
     actionsBlocked = false;
 
   }
 
   else {
 
-    $("#blocker").css("visibility", "visible");
+    // $("#blocker").css("visibility", "visible"); CLIENT(73)
+    io.sockets.emit('73');
     actionsBlocked = true;
 
   }
@@ -1645,12 +1636,6 @@ function initChangePlayer(){
 ///////////////////// END changePlayer ////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 
-//TO-DO NODE
-
-
-
-
-
 function reincarnatePlayer(){
 
   AllPlayers[currentPlayerNumber].setPlayerLife(AllPlayers[currentPlayerNumber].getPlayerLifeMax());
@@ -1688,43 +1673,41 @@ function EXPGain (gainedEXP) {
   var newEXP = currentEXP+gainedEXP;
 
       //Falls Erfahrungspunkte über oder gleich 100 --> Lvl Up
-  if (newEXP >= 100) {
+      if (newEXP >= 100) {
 
         //überschüssige EXP zwischenspeichern
-    var overrunEXP = newEXP - 100;
+        var overrunEXP = newEXP - 100;
         //Animation mit 100 ausführen
     // showEXPGain(currentEXP, 100); CLIENT(64)
     io.sockets.emit('64', {pCurrentEXP: currentEXP});
         //Level des Spielers erhöhen
-    AllPlayers[currentPlayerNumber].setPlayerLvl(AllPlayers[currentPlayerNumber].getPlayerLvl()+1);
+        AllPlayers[currentPlayerNumber].setPlayerLvl(AllPlayers[currentPlayerNumber].getPlayerLvl()+1);
         //EXP des Spielers wieder auf Wert der überschüssigen EXP setzen
-    AllPlayers[currentPlayerNumber].setPlayerEXP(overrunEXP);
+        AllPlayers[currentPlayerNumber].setPlayerEXP(overrunEXP);
 
     // setTimeout function CLIENT(65)
     io.sockets.emit('65', {pPlayerLvl: AllPlayers[currentPlayerNumber].getPlayerLvl(), pOverrunEXP: overrunEXP, pCurrentEXP: currentEXP});
   }
 
       //Spieler ist kein Level aufgestiegen
-  else {
+      else {
 
     // showEXPGain(currentEXP, newEXP); CLIENT(66)
     io.sockets.emit('66', {pCurrentEXP: currentEXP, pNewEXP: newEXP});
         //EXP des Spielers auf neuen Wert setzen
-    AllPlayers[currentPlayerNumber].setPlayerEXP(newEXP);
+        AllPlayers[currentPlayerNumber].setPlayerEXP(newEXP);
 
-  }
+      }
 
-}
+    }
 
-//TO-DO NODE
 function LevelUp() {
-
-  $("#LvlUpMarker").css("visibility", "hidden");
-  $("#lvl").css("visibility", "visible");
+  // $("#LvlUpMarker").css("visibility", "hidden"); CLIENT(1)
+  // $("#lvl").css("visibility", "visible"); CLIENT(1)
+  io.sockets.emit('1');
   update(18);
   update(19);
   blockAction();
-
 }
 
 
@@ -1854,7 +1837,7 @@ function initField() {
   setTimeout(function() {io.sockets.emit('48'); }, amountTiles*7 + 500 + amountMonsters*100 + 250 + 4*250 + 500 + 4000);
     // $("#characterSheet").css("visibility", "visible")
 
-}
+  }
 
 
 
@@ -2146,7 +2129,7 @@ function checkClickedTile(param) {
         if(currentMovementPoints < (clickedTile.getTerrainDifficulty()+1) && clickedTile.getHasMonsters() == false) {
 
           //alert("Not enough movementPoints left"); - CLIENT(42)
-          io.sockets.emit('42', "Not enough movementPoints left");
+          io.sockets.emit('62', {pInput: "Not enough movementPoints left", pTime: 0});
         }
 
         //... andernfalls Bewegung potentiell möglich
@@ -2283,50 +2266,35 @@ function healPlayer() {
     currentPlayer.setPlayerHealPoints(currentHealPoints-1);
   }
 
-  else { alert("no heal points left or already healed!")}
+  else { io.sockets.emit('62', {pInput: "no heal points left or already healed!", pTime: 0});
 
   //Änderung sichtbar machen
-updateCharSheet();
+  //updateCharSheet(); CLIENT(52)
+  var cP = AllPlayers[currentPlayerNumber];
+  io.sockets.emit('52', {cPPlayerSword: cP.getPlayerSword(), cPPlayerSwordDmg: cP.getPlayerSwordDmg(), 
+    cPPlayerBow: cP.getPlayerBow(), cPPlayerBowDmg: cP.getPlayerBowDmg(), 
+    cPPlayerMagic: cP.getPlayerMagic(), cPPlayerMagicDmg: cP.getPlayerMagicDmg(), 
+    cPPlayerLife: cP.getPlayerLife(), cPPlayerLifeMax: cP.getPlayerLifeMax(), 
+    cPPlayerHealPoints: cP.getPlayerHealPoints(), cPPlayerHealPointsMax: cP.getPlayerHealPointsMax(), 
+    cPPlayerBoost: cP.getPlayerBoost(), cPPlayerBoostMax: cP.getPlayerBoostMax(), 
+    cPPlayerTrackingPoints: cP.getPlayerTrackingPoints(), cPPlayerTrackingPointsMax: cP.getPlayerTrackingPointsMax(), 
+    cPPlayerXStrikePoints: cP.getPlayerXStrikePoints(), cPPlayerXStrikePointsMax: cP.getPlayerXStrikePointsMax(), 
+    cPPlayerMovementPoints: cP.getPlayerMovementPoints(), cPPlayerMovementPointsMax: cP.getPlayerMovementPointsMax(), 
+    cPPlayerLvl: cP.getPlayerLvl(), cPPlayerEXP: cP.getPlayerEXP()});
 
+  }
 }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/////////////////////
+//////////////////////////
 // CHARSHEET FUNCTIONS //
-/////////////////////
+////////////////////////
 
-
+/*
 function lvl(){
   document.getElementById('lvl').style.display = 'block';
-}
+}*/
 
 //html-Text
 function update(attribute) {
@@ -2339,12 +2307,14 @@ function update(attribute) {
 
     h = attribute;
     hh = "." + attribute;
-    $(hh).html(stats[attribute]);
+    // $(hh).html(stats[attribute]); CLIENT(74)
+    io.sockets.emit('74', {pId: hh, pInput: stats[attribute]});
 
     if (h != 19 && h != 18 && h > 7) {
 
       hhh = "." + h + "0";
-      $(hhh).html(stats[attribute]);
+      // $(hhh).html(stats[attribute]); CLIENT(74)
+      io.sockets.emit('74', {pId: hhh, pInput: stats[attribute]});
     }
   }
 
@@ -2365,7 +2335,6 @@ function update(attribute) {
  stats[hate] = stats[hate]+1;
 
 }*/
-
 
 function statsIncrement(hate) {
 
@@ -2393,7 +2362,10 @@ if(stats[18] > 0 || stats[19] > 0) {
           i = stats[hate]+1;
           stats[hate] = i;
 
-          if(stats[18] == 0 && stats[19] == 0) {updateStats(stats); $("#lvl").css("visibility", "hidden"); blockAction();}
+          if(stats[18] == 0 && stats[19] == 0) {updateStats(stats); 
+            // $("#lvl").css("visibility", "hidden"); CLIENT(72)
+            io.sockets.emit('72');
+            blockAction();}
 
         }
       }
@@ -2415,34 +2387,14 @@ if(stats[18] > 0 || stats[19] > 0) {
       i = stats[hate]+1;
       stats[hate] = i;
 
-      if(stats[18] == 0 && stats[19] == 0) {updateStats(stats); $("#lvl").css("visibility", "hidden"); blockAction();}
+      if(stats[18] == 0 && stats[19] == 0) {updateStats(stats); 
+        // $("#lvl").css("visibility", "hidden"); CLIENT(72)
+        io.sockets.emit('72');
+        blockAction();}
 
     }
   } 
 } 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2538,8 +2490,8 @@ function check(status)
   
   if(status=="defence")
   {
-    //TO-DO NODE
-    //blockSound();
+    //blockSound(); CLIENT(75)
+    io.sockets.emit('75');
     if(dmin>0)
     {
       dmin=dmin-1;
@@ -2550,8 +2502,8 @@ function check(status)
   }
   if(status=="attack")
   {
-    //TO-DO NODE
-    //swordDrawSound();
+    //swordDrawSound(); CLIENT(76)
+    io.sockets.emit('76');
     if(amin>0)
     {
       amin=amin-1;
@@ -2689,15 +2641,15 @@ function fight(status){
     //updateCharSheet(); CLIENT(52)
     var cP = AllPlayers[currentPlayerNumber];
     io.sockets.emit('52', {cPPlayerSword: cP.getPlayerSword(), cPPlayerSwordDmg: cP.getPlayerSwordDmg(), 
-    cPPlayerBow: cP.getPlayerBow(), cPPlayerBowDmg: cP.getPlayerBowDmg(), 
-    cPPlayerMagic: cP.getPlayerMagic(), cPPlayerMagicDmg: cP.getPlayerMagicDmg(), 
-    cPPlayerLife: cP.getPlayerLife(), cPPlayerLifeMax: cP.getPlayerLifeMax(), 
-    cPPlayerHealPoints: cP.getPlayerHealPoints(), cPPlayerHealPointsMax: cP.getPlayerHealPointsMax(), 
-    cPPlayerBoost: cP.getPlayerBoost(), cPPlayerBoostMax: cP.getPlayerBoostMax(), 
-    cPPlayerTrackingPoints: cP.getPlayerTrackingPoints(), cPPlayerTrackingPointsMax: cP.getPlayerTrackingPointsMax(), 
-    cPPlayerXStrikePoints: cP.getPlayerXStrikePoints(), cPPlayerXStrikePointsMax: cP.getPlayerXStrikePointsMax(), 
-    cPPlayerMovementPoints: cP.getPlayerMovementPoints(), cPPlayerMovementPointsMax: cP.getPlayerMovementPointsMax(), 
-    cPPlayerLvl: cP.getPlayerLvl(), cPPlayerEXP: cP.getPlayerEXP()});
+      cPPlayerBow: cP.getPlayerBow(), cPPlayerBowDmg: cP.getPlayerBowDmg(), 
+      cPPlayerMagic: cP.getPlayerMagic(), cPPlayerMagicDmg: cP.getPlayerMagicDmg(), 
+      cPPlayerLife: cP.getPlayerLife(), cPPlayerLifeMax: cP.getPlayerLifeMax(), 
+      cPPlayerHealPoints: cP.getPlayerHealPoints(), cPPlayerHealPointsMax: cP.getPlayerHealPointsMax(), 
+      cPPlayerBoost: cP.getPlayerBoost(), cPPlayerBoostMax: cP.getPlayerBoostMax(), 
+      cPPlayerTrackingPoints: cP.getPlayerTrackingPoints(), cPPlayerTrackingPointsMax: cP.getPlayerTrackingPointsMax(), 
+      cPPlayerXStrikePoints: cP.getPlayerXStrikePoints(), cPPlayerXStrikePointsMax: cP.getPlayerXStrikePointsMax(), 
+      cPPlayerMovementPoints: cP.getPlayerMovementPoints(), cPPlayerMovementPointsMax: cP.getPlayerMovementPointsMax(), 
+      cPPlayerLvl: cP.getPlayerLvl(), cPPlayerEXP: cP.getPlayerEXP()});
 
     l_min_m=l_max_m;
     count3 = 0;
@@ -2708,27 +2660,27 @@ function fight(status){
     io.sockets.emit('60');
 
       //Falls der Spieler verliert, Status zurücksetzen
-    reincarnatePlayer();
+      reincarnatePlayer();
 
-  }
+    }
 
-  else if(l_min_m<=0)
-  {
+    else if(l_min_m<=0)
+    {
 
     // showFightAnimation("!! WIN !!"); CLIENT(62)
     io.sockets.emit('62', {pInput: "!! WIN !!", pTime: 0});
     //updateCharSheet(); CLIENT(52)
     var cP = AllPlayers[currentPlayerNumber];
     io.sockets.emit('52', {cPPlayerSword: cP.getPlayerSword(), cPPlayerSwordDmg: cP.getPlayerSwordDmg(), 
-    cPPlayerBow: cP.getPlayerBow(), cPPlayerBowDmg: cP.getPlayerBowDmg(), 
-    cPPlayerMagic: cP.getPlayerMagic(), cPPlayerMagicDmg: cP.getPlayerMagicDmg(), 
-    cPPlayerLife: cP.getPlayerLife(), cPPlayerLifeMax: cP.getPlayerLifeMax(), 
-    cPPlayerHealPoints: cP.getPlayerHealPoints(), cPPlayerHealPointsMax: cP.getPlayerHealPointsMax(), 
-    cPPlayerBoost: cP.getPlayerBoost(), cPPlayerBoostMax: cP.getPlayerBoostMax(), 
-    cPPlayerTrackingPoints: cP.getPlayerTrackingPoints(), cPPlayerTrackingPointsMax: cP.getPlayerTrackingPointsMax(), 
-    cPPlayerXStrikePoints: cP.getPlayerXStrikePoints(), cPPlayerXStrikePointsMax: cP.getPlayerXStrikePointsMax(), 
-    cPPlayerMovementPoints: cP.getPlayerMovementPoints(), cPPlayerMovementPointsMax: cP.getPlayerMovementPointsMax(), 
-    cPPlayerLvl: cP.getPlayerLvl(), cPPlayerEXP: cP.getPlayerEXP()});
+      cPPlayerBow: cP.getPlayerBow(), cPPlayerBowDmg: cP.getPlayerBowDmg(), 
+      cPPlayerMagic: cP.getPlayerMagic(), cPPlayerMagicDmg: cP.getPlayerMagicDmg(), 
+      cPPlayerLife: cP.getPlayerLife(), cPPlayerLifeMax: cP.getPlayerLifeMax(), 
+      cPPlayerHealPoints: cP.getPlayerHealPoints(), cPPlayerHealPointsMax: cP.getPlayerHealPointsMax(), 
+      cPPlayerBoost: cP.getPlayerBoost(), cPPlayerBoostMax: cP.getPlayerBoostMax(), 
+      cPPlayerTrackingPoints: cP.getPlayerTrackingPoints(), cPPlayerTrackingPointsMax: cP.getPlayerTrackingPointsMax(), 
+      cPPlayerXStrikePoints: cP.getPlayerXStrikePoints(), cPPlayerXStrikePointsMax: cP.getPlayerXStrikePointsMax(), 
+      cPPlayerMovementPoints: cP.getPlayerMovementPoints(), cPPlayerMovementPointsMax: cP.getPlayerMovementPointsMax(), 
+      cPPlayerLvl: cP.getPlayerLvl(), cPPlayerEXP: cP.getPlayerEXP()});
     // setTimeout(function(){showFightAnimation("GAINED "+exp+" EXP")}, 1000); CLIENT(62)
     io.sockets.emit('62', {pInput: "GAINED "+exp+" EXP", pTime: 1000});
 
@@ -2743,26 +2695,25 @@ function fight(status){
         //Falls der Spieler gewonnen hat, wird Spielfigur bewegt
         //Die Variablen sind global definiert und ändern sich mit Aufruf der Funktion checkClickedTile
         //(Also bei jedem Klick für eine Bewegung)
-    initMovePlayer(idClickedTile, clickedTile);
+        initMovePlayer(idClickedTile, clickedTile);
         //Animation zeigen bei Sieg
     // showFieldWinAnimation(clickedTile); CLIENT(67)
     io.sockets.emit('67', {pXPosition: clickedTile.getXPosition(), pYPosition: clickedTile.getYPosition()});
         //Dem Spieler die erhaltenen EXP gutschreiben
-    setTimeout(function(){EXPGain(exp);}, 2500);
+        setTimeout(function(){EXPGain(exp);}, 2500);
         //Der Kachel sagen, dass sie nun kein Monster mehr hat
-    clickedTile.setHasMonsters(false);
+        clickedTile.setHasMonsters(false);
 
-  }
-}
+      }
+    }
 
 
 
-function checkTrackingAbility () {
-  console.log('checkTrackingAbility');
-  currentPlayer = AllPlayers[currentPlayerNumber];
-  curTrack = currentPlayer.getPlayerActiveTracking();
-  temp = 0;
-  trackResult = 0;
+    function checkTrackingAbility () {
+      currentPlayer = AllPlayers[currentPlayerNumber];
+      curTrack = currentPlayer.getPlayerActiveTracking();
+      temp = 0;
+      trackResult = 0;
 
   //Zufallszahl je nach activem Tracking bestimmen
   //Je höher die Fähigkeit, desto wahrscheinlicher schafft man einen hohen Wert
@@ -2833,7 +2784,6 @@ function checkTrackingAbility () {
 
 
 function changeButtonsMonsterChooser(trackResult) {
-  console.log('changeButtonsMonsterChooser');
   //Zeige Buttons entsprechend an
   switch(trackResult) {
 

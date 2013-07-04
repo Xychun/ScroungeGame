@@ -204,7 +204,7 @@ function startFightRoutine(index, clickedTile) {
 }
 
 function movePlayer(param) {
-  //TO-DO moveSound();
+  moveSound();
   document.getElementById("movementPoints").innerHTML = param.pCurrentMovementPoints; //TESTZWECKE
   //Die Bewegungspunkte-Anzeige aktualisieren
   $("#move").html(""+param.pCurrentMovementPoints);
@@ -309,7 +309,7 @@ function showTiles(param) {
       return function() {
 
         document.getElementById(param.b[j]).style.visibility = "visible";
-        /*              if(j%10 == 0) {moveSound();}*/
+        if(j%20 == 0) {moveSound();}
 
       }
 
@@ -336,7 +336,7 @@ function addTemplates(param) {
     templateIMG.style.top = yCounter+"px";
     field.appendChild(templateIMG); 
 
-    //TO-DO
+    
     templateIMG.onclick = function(){clixxx(53, this.id);};
     templateIMG.onmouseover = function(){clixxx(54, this.id);};
 
@@ -458,7 +458,7 @@ function changePlayer(param){
   document.getElementById('playerName2').innerHTML = param.currentPlayerName;
 }
 
-//TO-DO
+
 function updateCharSheet(param) {
   //STATS
   $("#sword").html(param.cPPlayerSword); $("#swordMax").html(param.cPPlayerSwordDmg);
@@ -486,7 +486,7 @@ function showMonsterChooser () {
   $(document).ready(function(){
 
     $("#monsterChooser").animate({top: '-20px'}, 1000);
-    //TO-DO chainSound();
+    chainSound();
 
   });
 }
@@ -496,7 +496,7 @@ function hideMonsterChooser () {
   $(document).ready(function(){
 
     $("#monsterChooser").animate({top: '-325px'}, 1000);
-    //TO-DO chainSound();
+    chainSound();
 
   });
 }
@@ -518,7 +518,7 @@ function showFightAnimation (Text) {
 var timeShowReincarnate = 0;
 function showReincarnationAnimation () {
 
-  //TO-DO monsterGrowlSound();
+  monsterGrowlSound();
   var grimReaper = document.createElement("div");
   grimReaper.className = "grimReaper"
   grimReaper.id = "grimReaper";
@@ -559,11 +559,10 @@ function bewegeRahmen(param){
 }
 
 function startFight(param) {
-  alert('DIFFICULTY: ' + param.pDifficulty);
   hideMonsterChooser()
   setTimeout(function() {
 
-    //TO-DO metalClashSound();
+    metalClashSound();
     writeStats(param); 
     $("#fight").css("visibility", "visible");
 
@@ -645,7 +644,7 @@ function showEXPGain (currentEXP, newEXP) {
         //Falls LvlUp erreicht
         if(j == 100) {
 
-          //TO-DO lvlUpSound();
+          lvlUpSound();
           $("#LvlUpMarker").css("visibility", "visible");
 
         }
@@ -662,7 +661,7 @@ function showEXPGain (currentEXP, newEXP) {
 
 var timeShowFieldWinAnim = 0;
 function showFieldWinAnimation (param) {
-  //TO-DO choralSound();
+  choralSound();
   var frame1 = document.createElement("div");
   frame1.className = "winFrame1";
   frame1.id = "winFrame1";
@@ -722,7 +721,7 @@ function showFieldWinAnimation (param) {
 function moveSound() {
 
   var audio = document.createElement("audio");
-  audio.src = "Sounds/Crack.mp3";
+  audio.src = "Sounds/Crack.ogg";
 
   audio.CurrentTime=0;
   audio.play(); 
@@ -732,7 +731,7 @@ function moveSound() {
 function wooshSound() {
 
   var audio = document.createElement("audio");
-  audio.src = "Sounds/whooosh.mp3";
+  audio.src = "Sounds/whooosh.ogg";
 
   audio.CurrentTime=0;
   audio.play(); 
@@ -742,7 +741,7 @@ function wooshSound() {
 function StabSound() {
 
   var audio = document.createElement("audio");
-  audio.src = "Sounds/SwordStab.mp3";
+  audio.src = "Sounds/SwordStab.ogg";
 
   audio.CurrentTime=0;
   audio.play(); 
@@ -752,7 +751,27 @@ function StabSound() {
 function swooshSound() {
 
   var audio = document.createElement("audio");
-  audio.src = "Sounds/Swoosh.mp3";
+  audio.src = "Sounds/Swoosh.ogg";
+
+  audio.CurrentTime=0;
+  audio.play(); 
+
+}
+
+function swordSound() {
+
+  var audio = document.createElement("audio");
+  audio.src = "Sounds/SwordStrike.ogg";
+
+  audio.CurrentTime=0;
+  audio.play(); 
+
+}
+
+function chainSound() {
+
+  var audio = document.createElement("audio");
+  audio.src = "Sounds/ChainSound.ogg";
 
   audio.CurrentTime=0;
   audio.play(); 
@@ -762,7 +781,7 @@ function swooshSound() {
 function clickSound() {
 
   var audio = document.createElement("audio");
-  audio.src = "Sounds/ButtonClick1.mp3";
+  audio.src = "Sounds/ButtonClick1.ogg";
 
   audio.CurrentTime=0;
   audio.play(); 
@@ -771,7 +790,7 @@ function clickSound() {
 function dieSound() {
 
   var audio = document.createElement("audio");
-  audio.src = "Sounds/PlayerDies.mp3";
+  audio.src = "Sounds/PlayerDies.ogg";
 
   audio.CurrentTime=0;
   audio.play(); 
@@ -780,7 +799,7 @@ function dieSound() {
 function winSound() {
 
   var audio = document.createElement("audio");
-  audio.src = "Sounds/EpicWin.mp3";
+  audio.src = "Sounds/EpicWin.ogg";
 
   audio.CurrentTime=0;
   audio.play(); 
@@ -789,7 +808,7 @@ function winSound() {
 function swordDrawSound() {
 
   var audio = document.createElement("audio");
-  audio.src = "Sounds/SwordDrawShort.mp3";
+  audio.src = "Sounds/SwordDrawShort.ogg";
 
   audio.CurrentTime=0;
   audio.play(); 
@@ -798,7 +817,7 @@ function swordDrawSound() {
 function blockSound() {
 
   var audio = document.createElement("audio");
-  audio.src = "Sounds/Block2.mp3";
+  audio.src = "Sounds/Block2.ogg";
 
   audio.CurrentTime=0;
   audio.play(); 
@@ -807,7 +826,16 @@ function blockSound() {
 function batGotHitSound() {
 
   var audio = document.createElement("audio");
-  audio.src = "Sounds/BatIsHit.mp3";
+  audio.src = "Sounds/BatIsHit.ogg";
+
+  audio.CurrentTime=0;
+  audio.play(); 
+}
+
+function gotHitSound() {
+
+  var audio = document.createElement("audio");
+  audio.src = "Sounds/PlayerGotHit.ogg";
 
   audio.CurrentTime=0;
   audio.play(); 
@@ -816,7 +844,7 @@ function batGotHitSound() {
 function metalClashSound() {
 
   var audio = document.createElement("audio");
-  audio.src = "Sounds/MetalClash6.mp3";
+  audio.src = "Sounds/MetalClash6.ogg";
 
   audio.CurrentTime=0;
   audio.play(); 
@@ -825,7 +853,7 @@ function metalClashSound() {
 function choralSound() {
 
   var audio = document.createElement("audio");
-  audio.src = "Sounds/Choral1.mp3";
+  audio.src = "Sounds/Choral1.ogg";
 
   audio.CurrentTime=0;
   audio.play(); 
@@ -834,7 +862,7 @@ function choralSound() {
 function lvlUpSound() {
 
   var audio = document.createElement("audio");
-  audio.src = "Sounds/LvlUp3.mp3";
+  audio.src = "Sounds/LvlUp3.ogg";
 
   audio.CurrentTime=0;
   audio.play(); 
