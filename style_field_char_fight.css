@@ -17,11 +17,40 @@ background-color: black;
 height: 100%;
 }
 
-button{ margin: 10px 10px;}
+button{ 
+margin: 10px 10px;
+border-style: solid;
+border-width: 1px;
+}
 
 #endTurnButton {visibility: hidden;}
 
-#interface {
+input{ 
+margin: 10px 10px;
+border-style: solid;
+border-width: 1px;
+}
+
+.center{
+text-align: center;
+padding-top:320px;
+}
+
+.bg_login{
+background-image: url("Bilddaten/Login/Background_Login.jpg");
+background-repeat: no-repeat;
+}
+
+#register {visibility: hidden;}
+#loged_in {visibility: hidden;}
+
+#game{
+background-image: url("Bilddaten/Spielfeld/Background_Game_New2.jpg");
+background-repeat: no-repeat;
+visibility: hidden;
+}
+
+.interface {
 
 	width: 1200px;
 	height: 640px;
@@ -30,8 +59,6 @@ button{ margin: 10px 10px;}
 	top: 50%;
 	left: 50%;
 	position: absolute;
-	background-image: url("Bilddaten/Spielfeld/Background_Game_New2.jpg");
-
 
 }
 

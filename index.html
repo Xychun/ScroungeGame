@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="style_kampf.css">
 	<!-- async sorgt dafür, dass js-Datei geladen wird ohne das Laden der HTML-Seite zu unterbrechen-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="jquery.easing.min.js"></script> -->
+	<script src="jquery.easing.min.js"></script>
 	<script src="functions_field_char_fight_11-05-1941.js" charset="utf-8"> </script>		
 	<script src="charSheet_jq-functions.js"></script>
 
@@ -22,6 +22,50 @@
 	
 
 
+	<!-- LOGIN -->
+
+	<div id="login" class="interface bg_login center">
+
+            <p>Username</p>
+            <input id="username" name="Username" type="text" size="30" maxlength="30">
+
+            <p>Password</p>
+            <input id="password" name="Password" type="password" size="30" maxlength="40">
+            
+            <br>
+            <button id="login_button" name="Login" onClick="login_clicked();">Login</button>
+
+            <br>
+            <button id="register_button" name="Register" onClick="visibilitySwitcher('#register','#login');">Register</button>
+        	
+    </div>
+
+    <div id="register" class="interface bg_login center">
+    		
+    		<p>Username</p>
+            <input id="reg_username" name="Reg_Username" type="text" size="30" maxlength="30">
+        
+    		<p>Email</p>
+            <input id="reg_email" name="Reg_Email" type="text" size="30" maxlength="30">
+        	            
+            <p>Password</p>
+            <input id="reg_password" name="Reg_Password" type="password" size="30" maxlength="40">
+  
+            <p>Confirm Password</p>
+            <input id="confirm_reg_password" name="Confirm_Reg_Password" type="password" size="30" maxlength="40">
+        	
+        	<br>
+            <button id="register_send" name="Register_Send" onClick="register_clicked();">Send Registration</button>
+            <!-- visibilitySwitcher('#login','#register'); -->
+    </div>
+
+    <div id="loged_in" class="interface bg_login center">
+        <p><br><button onClick="visibilitySwitcher('#game','#loged_in');">Spiel suchen</button></p>
+
+    </div>
+
+
+    <!-- LOGIN -->
 
 
 
@@ -35,11 +79,7 @@
 
 
 
-
-
-
-
-	<div id="interface">
+	<div id="game" class="interface">
 
 		<img id="blocker" width="1200" height="640">
 		
