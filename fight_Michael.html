@@ -1,0 +1,361 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> Webtechnologie - Rune Master - Prototyp </title>
+        <link rel="stylesheet" href="style_kampf.css">
+        <script src="JQuery.js"></script>
+	</head>
+    <script language="JavaScript">
+		<!--
+		//-->
+		x = 0;
+		check_ab = 0;
+		
+		function load_stats()
+		{	count3=0;
+			
+			dmin=2;
+			dmax=2;
+			amin=1;
+			amax=1;
+			abmin=3;
+			abmax=3;
+			esmin=4;
+			esmax=4;
+			
+			me_attack_c=4;
+			me_dmg_c=3;
+			
+			r_attack_c=2;
+			r_dmg_c=1;
+
+			ma_attack_c=1;
+			ma_dmg_c=0;
+			
+			l_min_c=10;
+			l_max_c=10;
+			
+			me_attack_m=8;
+			me_dmg_m=1;
+			
+			r_attack_m=11;
+			r_dmg_m=3;
+			
+			ma_attack_m=10;
+			ma_dmg_m=2;
+			
+			l_min_m=10;
+			l_max_m=10;
+			
+			document.getElementById("me_attack_c").innerHTML = me_attack_c;
+			document.getElementById("me_dmg_c").innerHTML = me_dmg_c;
+			
+			document.getElementById("r_attack_c").innerHTML = r_attack_c;
+			document.getElementById("r_dmg_c").innerHTML = r_dmg_c;
+			
+			document.getElementById("ma_attack_c").innerHTML = ma_attack_c;
+			document.getElementById("ma_dmg_c").innerHTML = ma_dmg_c;
+			
+			document.getElementById("l_min_c").innerHTML = l_min_c;
+			document.getElementById("l_max_c").innerHTML = l_max_c;
+			
+			document.getElementById("me_attack_m").innerHTML = me_attack_m;
+			document.getElementById("me_dmg_m").innerHTML = me_dmg_m;
+			
+			document.getElementById("r_attack_m").innerHTML = r_attack_m;
+			document.getElementById("r_dmg_m").innerHTML = r_dmg_m;
+			
+			document.getElementById("ma_attack_m").innerHTML = ma_attack_m;
+			document.getElementById("ma_dmg_m").innerHTML = ma_dmg_m;
+			
+			document.getElementById("l_min_m").innerHTML = l_min_m;
+			document.getElementById("l_max_m").innerHTML = l_max_m;
+			
+			document.getElementById("dmin").innerHTML = dmin;
+			document.getElementById("dmax").innerHTML = dmax;
+			document.getElementById("amin").innerHTML = amin;
+			document.getElementById("amax").innerHTML = amax;
+			document.getElementById("abmin").innerHTML = abmin;
+			document.getElementById("abmax").innerHTML = abmax;
+			document.getElementById("esmin").innerHTML = esmin;
+			document.getElementById("esmax").innerHTML = esmax;
+			
+			document.getElementById("rahmen").style.left = "0%";	
+		}
+		
+		function check(status)
+		{
+			if(count3==0)
+			{
+				attackboost="me_attack_c";
+				
+				attack_c=me_attack_c;
+				dmg_c=me_dmg_c;
+				
+				attack_m=me_attack_m;
+				dmg_m=me_dmg_m;
+			}
+			else if(count3==1)
+			{	
+				attackboost="r_attack_c";
+				
+				attack_c=r_attack_c;
+				dmg_c=r_dmg_c;
+				
+				attack_m=r_attack_m;
+				dmg_m=r_dmg_m;
+			}
+			else if(count3==2)
+			{	
+				attackboost="ma_attack_c";
+				
+				attack_c=ma_attack_c;
+				dmg_c=ma_dmg_c;
+				
+				attack_m=ma_attack_m;
+				dmg_m=ma_dmg_m;
+			}
+			
+			if(status=="defence")
+			{
+				if(dmin>0)
+				{
+					dmin=dmin-1;
+					document.getElementById("dmin").innerHTML = dmin;
+					fight(status);
+				}	
+			}
+			if(status=="attack")
+			{
+				if(amin>0)
+				{
+					amin=amin-1;
+					document.getElementById("amin").innerHTML = amin;
+					fight(status);
+				}
+			}
+			if(status=="attackBoost")
+			{
+				if(abmin>0)
+				{
+					abmin=abmin-1;
+					document.getElementById("abmin").innerHTML = abmin;
+					if(count3==0)
+					{
+						if(check_ab==0)
+						{
+							zw = me_attack_c;
+						}
+						attackboost="me_attack_c";
+						me_attack_c=me_attack_c+1;
+						attack_c=me_attack_c;
+					}
+					else if(count3==1)
+					{
+						if(check_ab==0)
+						{
+							zw = r_attack_c;
+						}
+						attackboost="r_attack_c";
+						r_attack_c=r_attack_c+1;
+						attack_c=r_attack_c;
+					}
+					else if(count3==2)
+					{
+						if(check_ab==0)
+						{
+							zw = ma_attack_c;
+						}
+						attackboost="ma_attack_c";
+						ma_attack_c=ma_attack_c+1;
+						attack_c=ma_attack_c;
+					}
+					check_ab=1;
+					document.getElementById(attackboost).innerHTML = attack_c;
+					
+				}
+			}
+			if(status=="extraStrike")
+			{
+				if(esmin!=0)
+				{
+					esmin=esmin-1;
+					document.getElementById("esmin").innerHTML = esmin;
+					amin=amin+1;
+					document.getElementById("amin").innerHTML = amin;
+				}
+			}
+			
+			
+			if(count3==3)
+			{
+				alert("naechste Runde !");
+				count3=0;
+				dmin=dmax;
+				amin=amax;
+				document.getElementById("dmin").innerHTML = dmin;
+				document.getElementById("amin").innerHTML = amin;
+			}
+
+		}
+		function fight(status)
+		{
+			wuerfel= Math.floor(Math.random() * 12 + 1);
+
+			if(wuerfel+attack_c<attack_m)
+			{
+				l_min_c=l_min_c - dmg_m;
+				document.getElementById("l_min_c").innerHTML = l_min_c;
+				setTimeout(function(){$(".c").toggleClass("ca");},1000);
+				$(".c").toggleClass("ca");
+			}
+			else if(status=="attack")
+			{
+				l_min_m=l_min_m - dmg_c;
+				/*$("#l_min_m").text = l_min_m;*/
+				document.getElementById("l_min_m").innerHTML = l_min_m;
+				setTimeout(function(){$(".m").toggleClass("ma");},1000);
+				$(".m").toggleClass("ma");
+			}
+			
+			if(check_ab==1)
+			{
+				document.getElementById(attackboost).innerHTML = zw;
+				check_ab=0;
+			}
+							
+			count3=count3+1;
+			
+			x=x+25;
+			if(x==75)
+			{x=0;}
+			document.getElementById("rahmen").style.left = x + "%";
+			
+			if(l_min_c<=0)
+			{
+				alert("Spieler ist Tod ! Du hast verloren !");
+				load_stats();
+			}
+			else if(l_min_m<=0)
+			{
+				alert("Monster ist Tod ! Du hast gewonnen !");
+				load_stats();
+			}
+		}
+		function pressed(name){
+		var id = "#img_" + name;
+		var src = name + "_pressed.png";	
+        $(id).attr("src", src);
+
+		}
+		function released(name){
+		var id = "#img_" + name;
+		var src = name + ".png";
+        $(id).attr("src", src);
+		}
+
+		
+	</script>
+    
+	<body>      
+    <button onClick="load_stats()">Stats Laden</button> 
+        <div id="fight">
+            <div id="buttonsLeft">
+                <img src="defence.png" name="defence" class="button defence" id="img_defence" 
+                onClick="check(name)" onMouseDown="pressed(name)" 
+                onMouseUp="released(name)">
+                    <p class="text top75 defence"><a id="dmin">0</a> / <a id="dmax">0</a></p>
+                </img>
+                <img src="attack.png" name="attack" class="button attack" id="img_attack"
+                onClick="check(name)" onMouseDown="pressed(name)" 
+                onMouseUp="released(name)">
+                    <p class="text top395 attack">
+                    	<a id="amin">0</a> / <a id="amax">0</a>
+                    </p>
+                </img>
+            </div>
+            <div id="middle">
+            	<p>Spieler <img src="tfg-icon.png" height ="25" width="40"></p>
+            	<div id="character">
+                	<div id="image_Character">
+                	</div>
+                    
+                	<div class="prime stats_center">10</div>
+                	<progress class="bar" value="75" max="100"></progress>
+                    
+                    <div id="statsDiv" style="top:-1px;">
+                            <div class="stats">
+                                <p class="stats_center">
+                                    <a id="me_attack_c">0</a> / <a id="me_dmg_c">0</a>
+                                </p>
+                            </div>
+                            <div class="stats">
+                                <p class="stats_center">
+                                    <a id="r_attack_c">0</a> / <a id="r_dmg_c">0</a>
+                                </p>
+                            </div>
+                            <div class="stats">
+                                <p class="stats_center">
+                                    <a id="ma_attack_c">0</a> / <a id="ma_dmg_c">0</a>
+                                </p>
+                            </div>
+                            <div class="stats c">
+                                <p class="stats_center">
+                                    <a id="l_min_c">0</a> / <a id="l_max_c">0</a>
+                                </p>
+                            </div>
+                    </div>
+                </div>
+            	<div id="slider">
+                	<img src="Phasen_Rahmen.png" id="rahmen">
+                    </img>
+                </div>
+            	<div id="monster">
+                    <div id="statsDiv">
+                    	<div class="stats">
+                        	<p class="stats_center">
+                            	<a id="me_attack_m">0</a> / <a id="me_dmg_m">0</a>
+                            </p>
+                        </div>
+                        <div class="stats">
+                        	<p class="stats_center">
+                            	<a id="r_attack_m">0</a> / <a id="r_dmg_m">0</a>
+                            </p>
+                        </div>
+                        <div class="stats">
+                        	<p class="stats_center">
+                            	<a id="ma_attack_m">0</a> / <a id="ma_dmg_m">0</a>
+                            </p>
+                        </div>
+                        <div class="stats m">
+                        	<p class="stats_center">
+                            	<a id="l_min_m">0</a> / <a id="l_max_m">0</a>
+                            </p>
+                     	</div>
+                	</div>
+                <div id="image_Monster">
+                </div>
+                </div>
+                <p>Monster <img src="tfg-icon.png" height ="25" width="40"></p>
+            </div>
+            <div id="buttonsRight">
+            	<img src="attackBoost.png" name="attackBoost" class="button attackboost" 
+                id="img_attackBoost" onClick="check(name)" onMouseDown="pressed(name)" 
+                onMouseUp="released(name)">
+                	<p class="text top75 attackboost">
+                    	<a id="abmin">0</a> / <a id="abmax">0</a>
+                  	</p>
+                </img>
+                <img src="extraStrike.png" name="extraStrike" class="button extrastrike"
+                id="img_extraStrike" 
+                onClick="check(name)" onMouseDown="pressed(name)" 
+                onMouseUp="released(name)">
+                    <p class="text top395 extrastrike">
+                    	<a id="esmin">0</a> / <a id="esmax">0</a>
+                	</p>
+                </img>
+            </div>
+        </div>
+	</body>
+</html>

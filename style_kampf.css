@@ -1,0 +1,259 @@
+* {padding: 0; margin: 0;}
+
+.barFight{
+	height:20px;
+	width:240px;
+}
+.primeFight{
+	position: absolute;
+	color: white;
+	top:146px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 16pt;
+	z-index:2;
+}
+body.char{
+background-color: black;
+text-align: right;
+}
+.stats_center
+{
+text-align:center;
+}
+
+.button{
+height:109px;
+width:120px;
+}
+.defence{
+position:absolute;
+left:50%;
+top:15%;
+}
+.attack{
+position:absolute;
+left:50%;
+top:65%;
+}
+.attackboost{
+position:absolute;
+left:25%;
+top:15%;
+}
+.extrastrike{
+position:absolute;
+left:25%;
+top:65%;
+}
+.statsFight{
+position:relative;
+float:left;
+height:80px;
+width:60px;
+}
+#phaseFrame{
+background-image: url('Bilddaten/Kampf/PhaseFrame2.png');
+background-repeat: no-repeat;
+position:absolute;
+top: 265px;
+left: 480px;
+height:158px;
+width:64px;
+z-index: 5;
+visibility: hidden;
+}
+#fight{
+background-size: 100% 100%;
+width: 1200px;
+height: 640px;
+margin-left: -600px;
+margin-top: -320px;
+top: 50%;
+left: 50%;
+position: absolute;	
+z-index: 6;
+visibility:hidden;
+}
+.rightFight{
+	position:absolute;
+	top:0px;
+	right:0px;
+	width:720px;
+	height:640px;	
+}
+.leftFight{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:720px;
+	height:640px;
+}
+#buttonsLeft{
+background-image:url(Bilddaten/Kampf/Fight_Background_Left.gif);
+position:absolute;
+right:240px;
+height:640px;
+width:480px;
+}
+#middle{
+position:relative;
+background-color:#00ff00;
+float:left;
+height:640px;
+width:240px;		
+}
+#character{
+position:absolute;
+background-image:url(Bilddaten/Kampf/Char_Background.jpg);
+left:0px;
+top:0px;
+height:332px;
+width:240px;
+}
+#image_Character{
+background-image:url(Bilddaten/Kampf/Character.jpg);
+background-size: 100% 100%;
+position:relative;
+height:176px;
+width:240px;
+}
+#image_Monster{
+background-image:url(Bilddaten/Kampf/Monster.jpg);
+background-size: 100% 100%;
+position:relative;
+height:176px;
+width:240px;
+}
+#statsDiv{
+background-image:url(Bilddaten/Kampf/background_stats.jpg);
+background-size:100% 100%;
+position:relative;
+height:80px;
+width:240px;
+}
+#slider{
+position:absolute;
+top:210px;;
+height:160px;
+width:240px;	
+z-index:1;
+}
+#monster{
+background-image:url(Bilddaten/Kampf/Monster_Background.jpg);
+position:absolute;
+background-color: red;
+bottom:0px;
+right:0px;
+height:308px;
+width:240px;
+}
+#monsterName{
+position: absolute;
+color: white;
+bottom: 10px;
+width: 240px;
+text-align: center;
+font-size: 17pt;
+font-weight: bold;
+text-shadow: 2px 2px 1px black;		
+}
+.primeMonsterSheet{
+position: absolute;
+top: 20px;
+color: white;
+text-align: center;
+font-size: 16pt;
+text-shadow: 2px 2px 1px black;
+}
+#charImg2{
+position: absolute;
+top: 80px;
+}
+#playerName2{
+position: absolute;
+color: white;
+top: 37px;
+width: 190px;
+text-align: center;
+font-size: 17pt;
+font-weight: bold;
+text-shadow: 2px 2px 1px black;	
+}
+#buttonsRight{
+background-image:url(Bilddaten/Kampf/Fight_Background_Right.gif);
+position:relative;
+left:240px;
+height:640px;
+width:480px;	
+}
+.text{
+color:white;
+text-shadow: 1px 1px 1px black;
+font-weight: bold;
+font-size: 30pt;
+position:absolute;
+width:120px;
+text-align:center;
+}
+.top75{
+top:50px;
+}
+.top395{
+top:370px;
+}
+
+.c{
+position: relative;
+background: none;
+float:left;
+}
+
+.ca{
+position: relative;
+background: none;
+float:left;
+
+animation-name: mythird;
+animation-duration: 0.3s;
+animation-timing-function: linear;
+animation-iteration-count: 3;
+
+} 
+
+@keyframes mythird
+{	
+0%   {background: none;}
+25%  {background: none;}
+50%  {background: red; opacity:0.5;}
+75%  {background: none;}
+100% {background: none;}
+}
+
+.m{
+position: relative;
+background: none;
+float:left;
+}
+
+.ma{
+position: relative;
+background: none;
+float:left;
+
+animation-name: mythird;
+animation-duration: 0.3s;
+animation-timing-function: linear;
+animation-iteration-count: 3;
+
+} 
+
+@keyframes mythird
+{	
+0%   {background: none;}
+25%  {background: none;}
+50%  {background: red; opacity:0.5;}
+75%  {background: none;}
+100% {background: none;}
+}
+

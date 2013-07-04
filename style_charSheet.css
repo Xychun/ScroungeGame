@@ -1,0 +1,342 @@
+* {padding: 0; margin: 0;}
+
+body{
+	background-color: black;
+}
+
+a.tooltip {text-decoration:none;}
+.tooltip span.info{display:none;}
+.tooltip:hover span.info{display:block;position:absolute; left: 200px; top: 20px; width:200px; height:200px; color: white;}
+
+.plusPrime{
+
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	top: 280px;
+	background-image: url("Bilddaten/CharSheet/LvlUpPrime2.gif");
+	background-repeat: no-repeat;
+	z-index: 12;
+
+}
+
+.plusSecondary {
+
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	left: 0px;
+	background-image: url("Bilddaten/CharSheet/LvlUpSecondary.gif");
+	background-repeat: no-repeat;
+	z-index: 12;
+}
+
+
+.right{
+	margin-left:auto;
+	margin-right:0px;
+}
+
+
+.primeCharSheet{
+	position: absolute;
+	top: 265px;
+	color: white;
+	text-align: center;
+	font-size: 16pt;
+	text-shadow: 2px 2px 1px black;
+}
+
+.runes{
+
+	position: absolute;
+	width: 221px;
+	height: 51px;
+
+}
+
+div.centerlayout{
+	position:absolute; 
+	left:50%; 
+	top:50%; 
+}
+
+div.win2{
+	display: block;
+	width:220px;
+	height:320px;
+	position: absolute;
+	top: 10px;
+}
+
+div.win3{
+	position: absolute;
+	top: 330px;
+	display: block;
+	width:220px;
+	height:300px;
+}
+
+/*.numbers{
+	position: absolute;
+	top: 5px;
+	width: 225px;
+	color: white;
+	text-align: center;
+	font-size: 16pt;
+	text-shadow: 2px 2px 1px black;
+}*/
+
+#playerName{
+
+	position: absolute;
+	color: white;
+	top: 37px;
+	width: 190px;
+	text-align: center;
+	font-size: 17pt;
+	font-style: bold;
+	text-shadow: 2px 2px 1px black;
+
+}
+
+#levelCounter{
+
+	position: absolute;
+	text-align: center;
+	color: white;
+	text-shadow: 2px 2px 1px black;
+	font-size: 20pt; 
+	top: 205px;
+}
+
+#LvlUpBar {
+
+	position: absolute;
+	top: 243px;
+	left: 7px;
+	width: 219px;
+	height: 13px;
+
+}
+
+#lvlUpPrime {
+
+	position: absolute;
+	top: 20px;
+	text-align: center;
+	color: white;
+	text-shadow: 2px 2px 1px black;
+	font-size: 20pt; 
+
+}
+
+#lvlUpSecondary {
+
+	position: absolute;
+	top: 20px;
+	text-align: center;
+	color: white;
+	text-shadow: 2px 2px 1px black;
+	font-size: 20pt; 
+
+}
+
+#LvlUpBarFill{
+
+	display: block;
+	background-image: url('Bilddaten/CharSheet/LvlBalken.png');
+	background-repeat: no-repeat;
+	height: 100%;
+}
+
+#LvlUpMarker{
+
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	top: 75px;
+	right: 5px;
+	background-image: url('Bilddaten/CharSheet/LvlUp.gif');
+	background-repeat: no-repeat;
+	visibility: hidden;
+}
+
+#charImg{
+
+	position: absolute;
+	width: 220px;
+	height: 166px;
+	top: 70px;
+	left: -1px;
+	background-image: url('Bilddaten/CharSheet/Spieler.png');
+	background-repeat: no-repeat;
+}
+
+span.tRight{
+	position: absolute;	
+	color: gold;
+	font-size: 15pt;
+	font-weight: bold;
+	text-shadow: 2px 2px 1px black;
+
+	bottom: 0px;
+	right: 5px;
+}
+
+span.tLeft{
+	position: absolute;	
+	color: yellow;
+	font-weight: bold;
+	font-size: 20pt;
+	text-shadow: 2px 2px 1px black;
+
+	top: 0px;
+	left: 5px;
+}
+
+span.tRightSec{
+	position: absolute;	
+	color: gold;
+	font-size: 15pt;
+	font-weight: bold;
+	text-shadow: 2px 2px 1px black;
+
+	text-align: center;
+	width: 25px;
+	bottom: 8px;
+	left: 38px;
+}
+
+span.tLeftSec{
+	position: absolute;	
+	color: yellow;
+	font-weight: bold;
+	font-size: 20pt;
+	text-shadow: 2px 2px 1px black;
+
+	text-align: center;
+	width: 25px;
+	top: 5px;
+	right: 30px;
+}
+
+.statsCharSheet{
+	position: absolute;
+	color: white;
+	text-align: center;
+	font-size: 16pt;
+	text-shadow: 2px 2px 1px black;
+	width: 55px;
+	height: 55px;
+	margin-left: 50px;
+	z-index: 2;
+}
+
+#lvl{
+	position: absolute;
+	width: 220px;
+	height: 640px;
+	margin-left: 4px;
+	z-index: 11;
+	visibility: hidden;
+}
+
+.primary{
+	border: 0px;
+	margin-top: 0px;
+	margin-left: 0px;
+	width: 284px;
+	color: white;
+	font-size: 16pt;
+	overflow: auto;
+}
+
+
+
+.input1{
+	margin-top: 0px;
+	margin-left:auto; 
+	margin-right:0px; 
+	width: 282px;
+	height: 50px;
+	color: white;
+	font-size: 22pt;
+	text-align: center;
+}
+
+.input2{
+	margin-top: -10px;
+	margin-left:auto; 
+	margin-right:0px; 
+	width: 282px;
+	height: 380px;
+	color: white;
+	font-size: 16pt;
+	border: 1px solid gold;
+}
+
+#bottom_bar{
+	display: none;
+}
+
+#char_button{
+	display: none;
+}
+
+/* HANDYFORMAT */ /* HANDYFORMAT */
+/* HANDYFORMAT */ /* HANDYFORMAT */
+
+@media (max-width: 960px) and (max-height: 640px) {
+	.right{
+		margin-left:auto;
+		margin-right:0px;
+		display: none;
+	}
+
+	#bottom_bar{
+		position: absolute;
+		bottom: 3px;
+		left: 3px;
+		display: inline;
+		border: 2px solid gold;
+		width: 500px;
+	}
+
+	.stats2{
+		position: relative;
+		border: 0px;
+		margin-top: 0px;
+		width: 48px;
+		height: 48px;
+		/*border: 1px solid gold;*/
+		color: white;
+		font-size: 16pt;
+	}
+
+	#char_button{
+		display: block;
+		top: 50%;
+		margin-top: -25;
+		right: 0px;
+	}
+
+	div.win1{
+		display: none;
+	}
+
+	div.win2{
+		display: none;
+	}
+
+	div.win3{
+		display: none;
+	}
+
+	#panel{
+		width: 100%;
+		height: 640px;
+		background-color: red;
+		right: 0px;
+	}
+}

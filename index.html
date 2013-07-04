@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title> Webtechnologie - Rune Master - Prototyp </title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="style_field_char_fight.css">
+	<link rel="stylesheet" href="style_charSheet.css">
+	<link rel="stylesheet" href="style_kampf.css">
+	<!-- async sorgt dafür, dass js-Datei geladen wird ohne das Laden der HTML-Seite zu unterbrechen-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="jquery.easing.min.js"></script> -->
+	<script src="functions_field_char_fight_11-05-1941.js" charset="utf-8"> </script>		
+	<script src="charSheet_jq-functions.js"></script>
+
+	<!-- NODE JS -->
+	<script src="http://localhost:9000/socket.io/socket.io.js"></script>
+	<script src="client.js"></script>
+</head>
+
+<body onload="document.getElementById('reihenAnzahl').value='', document.getElementById('monsterAnzahl').value='', document.getElementById('reihenLänge').value=''" >	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div id="interface">
+
+		<img id="blocker" width="1200" height="640">
+		
+		<div id="field">
+
+			<div id="monsterChooserHider" class="monsterChooserHider"> </div>
+			<div id="monsterChooser" class="monsterChooser"> 
+
+				<p id="monsterChooserTitle"> FIGHT! </p>
+
+				<div id="easyButton" class="buttons_Monster_Difficulty"> <span class="buttons_Monster_Difficulty"></span> </div>
+				<div id="moderateButton" class="buttons_Monster_Difficulty"> <span class="buttons_Monster_Difficulty"></span> </div>
+				<div id="strongButton" class="buttons_Monster_Difficulty"> <span class="buttons_Monster_Difficulty"></span> </div>
+				<div id="insaneButton" class="buttons_Monster_Difficulty"> <span class="buttons_Monster_Difficulty"></span> </div>
+
+			</div>
+			<!--  onClick="showMovementPhaseAnimation(); - NODE(0) -->
+			<div id="endTurnButton" class="endTurnButton" onClick="clixxx(0)"> </div>
+
+		</div>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<!-- CHAR SHEET SECTION -->
+
+
+
+		
+		<div id="characterSheet">
+
+			<!-- CHARAKTER SHEET ANFANG -->
+
+			<div class = "win2">
+
+				<div style="height: 25px; width: 220px"> 
+
+					<p id="playerName"> Spieler </p>  <img src="Bilddaten/CharSheet/Achievements.jpg" height ="28" width="28" style="position:absolute; right: 0px; top: 36px"> 
+
+				</div>
+
+				<img id="charImg">
+				<!-- onclick="LevelUp(); - NODE(1) -->
+				<img id="LvlUpMarker" onclick="clixxx(1)">
+				<div id="levelCounter">10</div>
+				<div id="LvlUpBar"> <span id="LvlUpBarFill" style="width: 0%"> </span> </div>
+
+
+				<div class="statsCharSheet primeCharSheet" style="margin-left: -3px; background-image: url('Bilddaten/CharSheet/Nahkampf.png')"><span class="tLeft"><a class="0" id="sword"></a></span><span class="tRight"><a class="1" id="swordMax"></a></span>
+				</div>
+				
+				<div class="statsCharSheet primeCharSheet" style="margin-left: 55px; background-image: url('Bilddaten/CharSheet/Fernkampf.png"> <span class="tLeft"><a class="2" id="bow"></a> </span>
+					<span class="tRight"><a class="3" id="bowMax"></a></span>
+				</div>
+
+				
+				<div class="statsCharSheet primeCharSheet" style="margin-left: 111px; background-image: url('Bilddaten/CharSheet/Magie.png')"> <span class="tLeft"><a class="4" id="magic"></a></span>
+					<span class="tRight"><a class="5" id="magicMax"></a></span>
+				</div>
+
+				
+				<div class="statsCharSheet primeCharSheet" style="margin-left: 167px; background-image: url('Bilddaten/CharSheet/Leben.png')"> <span class="tLeft"><a class="6" id="life"></a></span>
+					<span class="tRight"><a class="7" id="lifeMax"></a></span>
+				</div>
+			</div>
+
+			<!--_______________________________________________________________________________________________ -->
+
+			<div class="win3">
+				
+				<div id="healRune" class="runes" style="top: 9px;background-image: url('Bilddaten/CharSheet/HealRune.jpg')" onclick="healPlayer();">
+
+					<div class="statsCharSheet"><span class="tLeftSec"> <a class="8" id="heal"></a></span>
+						<span class="tRightSec"><a class="9" id="healMax"></a></span>
+					</div>
+
+				</div>
+				
+				<div id="BoostRune" class="runes" style="top: 67px;background-image: url('Bilddaten/CharSheet/BoostRune.jpg')">	
+
+					<div class="statsCharSheet"><span class="tLeftSec"> <a class="10" id="pers"></a></span>
+						<span class="tRightSec"><a class="11" id="persMax"></a></span>
+					</div>
+					
+				</div>	
+
+				<div id="TrackingRune" class="runes" style="top: 125px;background-image: url('Bilddaten/CharSheet/TrackingRune.jpg')">
+
+					<div class="statsCharSheet"><span class="tLeftSec"> <a class="12" id="track"></a></span>
+						<span class="tRightSec"><a class="13" id="trackMax"></a></span>
+					</div>
+
+				</div>
+
+				<div id="XStrikeRune" class="runes" style="top: 182px;background-image: url('Bilddaten/CharSheet/XStrikeRune.jpg')">
+
+
+					<div class="statsCharSheet"><span class="tLeftSec"> <a class="14" id="xstrike"></a></span>
+						<span class="tRightSec"><a class="15" id="xstrikeMax"></a></span>
+					</div>
+
+				</div>
+
+				<div id="MovementRune" class="runes" style="top: 241px;background-image: url('Bilddaten/CharSheet/MovementRune.jpg')">
+
+
+					<div class="statsCharSheet"><span class="tLeftSec"> <a class="16" id="move"></a></span>
+						<span class="tRightSec"><a class="17" id="moveMax"></a></span>
+					</div>
+
+				</div>
+
+			</div>
+
+			<div id="lvl">
+				<!-- onclick="statsIncrement(0); update(0); - NODE(2) -->
+				<div id="lvlSword" class="plusPrime" style="left: 25px;" onclick="clixxx(2)"> </div>
+				<!-- onclick="statsIncrement(2); update(2); - NODE(3) -->
+				<div id="lvlBow" class="plusPrime" style="left: 83px" onclick="clixxx(3)"> </div>
+				<!-- onclick="statsIncrement(4); update(4); - NODE(4) -->
+				<div id="lvlMagic" class="plusPrime" style="left: 140px" onclick="clixxx(4)"> </div>
+				<!-- onclick="statsIncrement(7); update(7); - NODE(5) -->
+				<div id="lvlLife" class="plusPrime" style="left: 195px" onclick="clixx(5)"> </div>
+
+				<!-- onclick="statsIncrement(9); update(9); - NODE(6) -->
+				<div id="lvlMove" class="plusSecondary" style="top: 342px;" onclick="clixxx(6)"> </div>
+				<!-- onclick="statsIncrement(11); update(11); - NODE(7) -->
+				<div id="lvlTrack" class="plusSecondary" style="top: 400px;" onclick="clixxx(7)"> </div>
+				<!-- onclick="statsIncrement(13); update(13); - NODE(8) -->
+				<div id="lvlHeal" class="plusSecondary" style="top: 458px;" onclick="clixxx(8)"> </div>
+				<!-- onclick="statsIncrement(15); update(15); - NODE(9) -->
+				<div id="lvlBoost" class="plusSecondary" style="top: 515px;" onclick="clixxx(9)"> </div>
+				<!-- onclick="statsIncrement(17); update(17); - NODE(10) -->
+				<div id="lvlStrike" class="plusSecondary" style="top: 574px;" onclick="clixxx(10)"> </div>
+
+				<div class = "plusPrime" style="top: 100px; margin-left: 100px;"> <span> <a class="18" id="lvlUpPrime"></a></span> 
+				</div>
+				<div class = "plusSecondary" style="top: 100px; margin-left: 150px;"> <span> <a class="19" id="lvlUpSecondary"></a></span> 
+				</div>
+
+			</div>
+
+		</div>
+
+
+		
+		<!-- CHARAKTER SHEET ENDE -->
+
+
+	</div>	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- FIGHT SECTION -->
+
+	<div id="fight">
+
+		<div id="phaseFrame"> </div>
+
+		<div class="leftFight">
+			<div id="buttonsLeft">
+				<!-- onClick="check(name); - NODE(11) -->
+				<!-- onMouseDown="pressed(name); - NODE(12) -->
+				<!-- onMouseUp="released(name);  - NODE(13) -->
+				<img src="Bilddaten/Kampf/defence.png" name="defence" class="button defence" id="img_defence" 
+				onClick="clixxx(11,{ele_name: name})" onMouseDown="clixxx(12, {ele_name: name})" 
+				onMouseUp="clixxx(13, {ele_name: name})">		
+				<p class="text top75 defence"><a id="dmin">0</a> / <a id="dmax">0</a></p>
+				<!-- onClick="check(name); - NODE(11) -->
+				<!-- onMouseDown="pressed(name); - NODE(15) -->
+				<!-- onMouseUp="released(name);  - NODE(16) -->
+				<img src="Bilddaten/Kampf/attack.png" name="attack" class="button attack" id="img_attack"
+				onClick="clixxx(11, {ele_name: name})" onMouseDown="clixxx(15, {ele_name: name})" 
+				onMouseUp="clixxx(16, {ele_name: name})">
+				<p class="text top395 attack">
+					<a id="amin">0</a> / <a id="amax">0</a>
+				</p>
+			</div>
+
+			
+
+
+
+
+			<div id="monster">
+				<div>			
+					<div class="statsCharSheet primeMonsterSheet" style="margin-left: -3px">
+						<span class="tLeft"><a class="0" id="me_attack_m"></a></span>
+						<span class="tRight"><a class="1" id="me_dmg_m"></a></span>
+					</div>
+					
+					<div class="statsCharSheet primeMonsterSheet" style="margin-left: 60px;">
+						<span class="tLeft"><a class="2" id="r_attack_m"></a></span>
+						<span class="tRight"><a class="3" id="r_dmg_m"></a></span>
+					</div>
+
+					
+					<div class="statsCharSheet primeMonsterSheet" style="margin-left: 120px;">
+						<span class="tLeft"><a class="4" id="ma_attack_m"></a></span>
+						<span class="tRight"><a class="5" id="ma_dmg_m"></a></span>
+					</div>
+
+					
+					<div class="statsCharSheet primeMonsterSheet" style="margin-left: 180px;">
+						<span class="tLeft"><a class="6" id="l_min_m"></a></span>
+						<span class="tRight"><a class="7" id="l_max_m"></a></span>
+					</div>
+
+					<img src="Bilddaten/Kampf/Monster.jpg" height="176" width="240" style="position: absolute; top: 90px">
+
+					<p id='monsterName'> Fledermaus</p>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+		<div class="rightFight">
+			<div id="buttonsRight">
+				<!-- onClick="check(name); - NODE(11) -->
+				<!-- onMouseDown="pressed(name); - NODE(18) -->
+				<!-- onMouseUp="released(name);  - NODE(19) -->
+				<img src="Bilddaten/Kampf/attackBoost.png" name="attackBoost" class="button attackboost" 
+				id="img_attackBoost" onClick="clixxx(11, {ele_name: name})" onMouseDown="clixxx(18, {ele_name: name})" 
+				onMouseUp="clixxx(19, {ele_name: name})">
+				<p class="text top75 attackboost">
+					<a id="abmin">0</a> / <a id="abmax">0</a>
+				</p>
+				<!-- onClick="check(name); - NODE(11) -->
+				<!-- onMouseDown="pressed(name); - NODE(21) -->
+				<!-- onMouseUp="released(name);  - NODE(22) -->
+				<img src="Bilddaten/Kampf/extraStrike.png" name="extraStrike" class="button extrastrike"
+				id="img_extraStrike" 
+				onClick="clixxx(11, {ele_name: name})" onMouseDown="clixxx(21, {ele_name: name})" 
+				onMouseUp="clixxx(22, {ele_name: name})">
+				<p class="text top395 extrastrike">
+					<a id="esmin">0</a> / <a id="esmax">0</a>
+				</p>
+			</div>
+
+
+
+
+
+
+			<div id="character">
+				<div style="height: 25px; width: 220px"> 
+
+					<p id="playerName2"> Spieler </p>  <img src="Bilddaten/CharSheet/Achievements.jpg" height ="28" width="28" style="position:absolute; right: 0px; top: 36px"> 		
+				</div>
+
+				<div class = "win2">
+					<img id="charImg2" src="Bilddaten/Kampf/Spieler.png" height="176" width="240">
+					<div class="primeCharSheet" style="font-size: 20pt; top: 227px;">10</div>
+
+					<div class="statsCharSheet primeCharSheet" style="margin-left: -3px">
+						<span class="tLeft"><a class="0" id="me_attack_c"></a></span>
+						<span class="tRight"><a class="1" id="me_dmg_c"></a></span>
+					</div>
+					
+					<div class="statsCharSheet primeCharSheet" style="margin-left: 60px;">
+						<span class="tLeft"><a class="2" id="r_attack_c"></a></span>
+						<span class="tRight"><a class="3" id="r_dmg_c"></a></span>
+					</div>
+
+					
+					<div class="statsCharSheet primeCharSheet" style="margin-left: 120px;">
+						<span class="tLeft"><a class="4" id="ma_attack_c"></a></span>
+						<span class="tRight"><a class="5" id="ma_dmg_c"></a></span>
+					</div>
+
+					
+					<div class="statsCharSheet primeCharSheet" style="margin-left: 180px;">
+						<span class="tLeft"><a class="6" id="l_min_c"></a></span>
+						<span class="tRight"><a class="7" id="l_max_c"></a></span>
+					</div>
+				</div>
+			</div>
+
+
+
+		</div>
+	</div>
+
+	<!-- END -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- NUR ZU TESTZWECKEN -->
+
+
+
+	<div style="position:absolute; left: 0px">
+		<form>
+			<p style="color:white"> Reihenanzahl angeben (nur ungerade Werte) </p> 
+			<!-- onBlur="setFieldParas1(document.getElementById('reihenAnzahl').value); - NODE(23) -->
+			<input id="reihenAnzahl" name="columns" type="text" maxlenghth="2" onBlur="clixxx(23, {reihenAnzahl: document.getElementById('reihenAnzahl').value})">  <p id="warning1">  </p> 
+
+			<p style="color:white"> Reihenlänge angeben </p> 
+			<!-- onBlur="setFieldParas3(document.getElementById('reihenLänge').value); - NODE(24) -->
+			<input id="reihenLänge" name="columns" type="text" maxlenghth="2" onBlur="clixxx(24, {reihenLaenge: document.getElementById('reihenLänge').value})">  <p id="warning3">  </p> 
+
+			<p style="color:white"> Monsteranzahl angeben </p> 
+			<!-- onBlur="setFieldParas2(document.getElementById('monsterAnzahl').value); - NODE(25) -->
+			<input id="monsterAnzahl" name="monster" type="text" maxlenghth="2" onBlur="clixxx(25, {monsterAnzahl: document.getElementById('monsterAnzahl').value})">  <p id="warning2">  </p> 
+
+		</form>
+
+		<!-- onclick="startGame(); - NODE(26) -->
+		<button type="button" onclick="clixxx(26)">Create Field</button> <br>
+
+		<!-- onclick="window.location.reload(), document.getElementById('reihenAnzahl').value='', document.getElementById('monsterAnzahl').value='', document.getElementById('reihenLänge').value='';   - NODE(27) -->
+		<button type="button" onclick="clixxx(27)" >Refresh Field</button> <br>
+
+		<!-- onclick="showMonsterChooser(); - NODE(29) -->
+		<button type="button" id="bla" onclick="clixxx(29)">MonsterChooserAusfahren</button> <br>
+
+		<!-- onclick="hideMonsterChooser(); - NODE(30) -->
+		<button type="button" id="bla" onclick="clixxx(30)">MonsterChooserEinfahren</button> <br>
+
+		<!-- onclick="load_stats(); - NODE(31) -->
+		<button type="button" id="bla" onclick="clixxx(31)">Kampf-Stats laden</button> <br>
+
+		<p style="color:white"> Übrige Bewegungspunkte: </p> <p style="color:white" id="movementPoints"> </p> <br>
+
+		<!-- onclick="lvl(); - NODE(32) -->
+		<button id="levelUp" type="button" onclick="clixxx(32)">Aufleveln!</button>
+
+		<!-- onclick="EXPGain(70); - NODE(33) -->
+		<button id="EXPUp" type="button" onclick="clixxx(33, {exp: 70})">EXP!</button> <br>
+
+		<!-- onclick="blockAction(); - NODE(34) -->
+		<button type="button" onclick="clixxx(34)">Block Actions</button>
+
+	</div>
+
+</body>
+</html>
