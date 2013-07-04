@@ -331,7 +331,7 @@ socket.on('71',function(anonym){
 	showInsaneKonfig();
 });
 
-<<<<<<< HEAD
+
 //Server sendet EVENT 72
 socket.on('72',function(anonym){
 	$("#blocker").css("visibility", "hidden");
@@ -378,8 +378,6 @@ socket.on('80',function(anonym){
 });
 
 
-=======
->>>>>>> 68802a76ed42331f7e9c7707fc8a8692ff1fdcb7
 //Server sendet EVENT 1000
 socket.on('1000',function(anonym){
 	startFightRoutine(0, 0);
