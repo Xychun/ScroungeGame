@@ -2759,14 +2759,14 @@ function fight(status){
         //Falls der Spieler gewonnen hat, wird Spielfigur bewegt
         //Die Variablen sind global definiert und ändern sich mit Aufruf der Funktion checkClickedTile
         //(Also bei jedem Klick für eine Bewegung)
-        initMovePlayer(idClickedTile, clickedTile);
+    initMovePlayer(idClickedTile, clickedTile);
         //Animation zeigen bei Sieg
     // showFieldWinAnimation(clickedTile); CLIENT(67)
-    io.sockets.emit('67', {pClickedTile: clickedTile});
+    io.sockets.emit('67', {pXPosition: clickedTile.getXPosition(), pYPosition: clickedTile.getYPosition()});
         //Dem Spieler die erhaltenen EXP gutschreiben
-        setTimeout(function(){EXPGain(exp);}, 2500);
+    setTimeout(function(){EXPGain(exp);}, 2500);
         //Der Kachel sagen, dass sie nun kein Monster mehr hat
-        clickedTile.setHasMonsters(false);
+    clickedTile.setHasMonsters(false);
 
       }
     }

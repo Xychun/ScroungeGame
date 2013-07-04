@@ -308,7 +308,7 @@ socket.on('66',function(anonym){
 
 //Server sendet EVENT 67
 socket.on('67',function(anonym){
-	showFieldWinAnimation(anonym.pClickedTile);
+	showFieldWinAnimation(anonym);
 });
 
 //Server sendet EVENT 68
@@ -355,26 +355,6 @@ socket.on('75',function(anonym){
 //Server sendet EVENT 76
 socket.on('76',function(anonym){
 	swordDrawSound();
-});
-
-//Server sendet EVENT 77
-socket.on('77',function(anonym){
-	showInsaneKonfig();
-});
-
-//Server sendet EVENT 78
-socket.on('78',function(anonym){
-	showInsaneKonfig();
-});
-
-//Server sendet EVENT 79
-socket.on('79',function(anonym){
-	showInsaneKonfig();
-});
-
-//Server sendet EVENT 80
-socket.on('80',function(anonym){
-	showInsaneKonfig();
 });
 
 

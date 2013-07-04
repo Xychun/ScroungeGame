@@ -584,8 +584,7 @@ function startFight(param) {
 }
 
 
-function writeStats(param)
-{ 
+function writeStats(param){ 
 
   //Werte eintragen
   $("#me_attack_c").html(param.pMeAttackC);
@@ -628,8 +627,8 @@ function pressed(param){
   var id = "#img_" + param.ele_name;
   var src = "Bilddaten/Kampf/"+param.ele_name + "_pressed.png"; 
   $(id).attr("src", src);
-
 }
+
 function released(param){
   var id = "#img_" + param.ele_name;
   var src = "Bilddaten/Kampf/"+param.ele_name + ".png";
@@ -668,19 +667,14 @@ function showEXPGain (currentEXP, newEXP) {
 }
 
 var timeShowFieldWinAnim = 0;
-<<<<<<< HEAD
 function showFieldWinAnimation (param) {
-  choralSound();
-=======
-function showFieldWinAnimation (clickedTile) {
 
-  //TO-DO choralSound();
->>>>>>> 68802a76ed42331f7e9c7707fc8a8692ff1fdcb7
+  choralSound();
   var frame1 = document.createElement("div");
   frame1.className = "winFrame1";
   frame1.id = "winFrame1";
-  var x = clickedTile.getXPosition();
-  var y = clickedTile.getYPosition();
+  var x = param.pXPosition;
+  var y = param.pYPosition;
   document.getElementById("field").appendChild(frame1);
   document.getElementById("winFrame1").style.top=y+"px";
   document.getElementById("winFrame1").style.left=x+"px";
@@ -981,8 +975,6 @@ $(document).ready(function(){
 
 function showEasyKonfig() {
 
-  alert("easy");
-
   $(document).ready(function(){
 
     $("#easyButton").css({"backgroundPosition": "-240px 0px"});
@@ -1031,8 +1023,6 @@ function showEasyKonfig() {
 }
 
 function showModerateKonfig() {
-
-  alert("moderate");
 
   $(document).ready(function(){
 
@@ -1092,8 +1082,6 @@ function showModerateKonfig() {
 }
 
 function showStrongKonfig() {
-
-  alert("strong");
 
   $(document).ready(function(){
 
@@ -1163,8 +1151,6 @@ function showStrongKonfig() {
 }
 
 function showInsaneKonfig() {
-
-  alert("insane");
 
   $(document).ready(function(){
 
@@ -1304,7 +1290,7 @@ function checkEmail(email) {
 }
 
 function checkPassword(password1,password2) {
-  
+
   if(password1 == password2)
   {
     return true;
@@ -1334,12 +1320,12 @@ function checkRegistration(dbcheck) {
 }
 
 function registration(dbcheck){
-    if(dbcheck.check==true)
-    { 
-      alert("Registration successfully!"); 
-      visibilitySwitcher("#login","#register");
-    }
-    else
+  if(dbcheck.check==true)
+  { 
+    alert("Registration successfully!"); 
+    visibilitySwitcher("#login","#register");
+  }
+  else
     { alert("Error! " + dbcheck.errorMsg); }
 }
 
