@@ -99,7 +99,9 @@ io.sockets.on('connection', function (socket) {
     io.sockets.emit('21', anonym);
   });
 
-  //DELETED SOCKET 22
+  socket.on('22',function(anonym){
+    io.sockets.emit('22', anonym);
+  });
 
   //reihenanzahl
   socket.on('23',function(anonym){
@@ -205,7 +207,7 @@ io.sockets.on('connection', function (socket) {
   });
 
   socket.on('54',function(anonym){
-    //TO-DO funktioniert aber deaktiviert wegen consolen spamm: initBewegeRahmen(anonym);
+    initBewegeRahmen(anonym);
   });
 
   // SOCKET 55 - ActionEvent/MethodeEmit
@@ -250,20 +252,23 @@ io.sockets.on('connection', function (socket) {
     healPlayer();
   });  
 
+  socket.on('78', function(anonym){
+    activateTracking();
+  });
+
 
   socket.on('1000',function(anonym){
     io.sockets.emit('1000');
   });
 
   socket.on('2000',function(anonym){
-    startFightDifficulty = anonym.pDifficulty;
+    //startFightDifficulty = anonym.pDifficulty;
     loadStats();
     io.sockets.emit('2000', {pMeAttackC: me_attack_c, pMeDmgC: me_dmg_c, pRAttackC: r_attack_c, 
       pRDmgC: r_dmg_c, pMaAttackC: ma_attack_c, pMaDmgC: ma_dmg_c, pLMinC: l_min_c, pLMaxC: l_max_c,
       pMeAttackM: me_attack_m, pMeDmgM: me_dmg_m, pRAttackM: r_attack_m, pRDmgM: r_dmg_m, pMaAttackM: ma_attack_m,
       pMaDmgM: ma_dmg_m, pLMinM: l_min_m, pLMaxM: l_max_m, pDim: dmin, pDmax: dmax, pAmin: amin, pAmax: amax,
-      pAbmin: abmin, pAbmax: abmax, pEsmin: esmin, pEsmax: esmax, pDifficulty: startFightDifficulty});
-
+      pAbmin: abmin, pAbmax: abmax, pEsmin: esmin, pEsmax: esmax});
     x = 480; 
   });
 
@@ -275,7 +280,7 @@ io.sockets.on('connection', function (socket) {
 
       var check = false;
       if (mysql.escape(anonym.u)=="'"+getName(0)+"'")
-      { check = true; }
+        { check = true; }
 
       socket.emit('5000',{userExist: check});
     },300);    
@@ -292,7 +297,7 @@ io.sockets.on('connection', function (socket) {
       insertDB(sql); // Übergibt die Daten an die Datenbank-Funktion()
 
       setTimeout(function(){socket.emit('5001',{check: getQueryCheck(), errorMsg: getQueryError});
-      },300); 
+    },300); 
 
     }
   });
@@ -310,7 +315,7 @@ io.sockets.on('connection', function (socket) {
 
         var check = false;
         if (mysql.escape(anonym.u)=="'"+getName(0)+"'" && mysql.escape(anonym.p)=="'"+getPassword(0)+"'")
-        { check = true; }
+          { check = true; }
 
         socket.emit('5002',{check: check});
       },300); 
@@ -396,7 +401,7 @@ var tilesAroundPlayer = new Array();
 var amountFieldColumns = 17; // standardmäßig im Fall, dass nichts eingenstellt wird: 12
 var columnLength = 23; // standardmäßig im Fall, dass nichts eingestellt wird: 24
 var amountTiles = -1; //errechnet sich aus amountFieldColumns
-var amountMonsters = 5; // standardmäßig im Fall, dass nichts eingestellt wird: 5
+var amountMonsters = 20; // standardmäßig im Fall, dass nichts eingestellt wird: 5
 
 zwischenSpeicherRahmen = 0;
 
@@ -1157,13 +1162,37 @@ function shuffleTilesArray() {
 // Erzeugt alle Spielfeld-Kacheln
 
 var tilesArray = new Array();
-
 function createTiles() {
-
+  var evenColumn = true;
+  var xCounter = 0;
+  var yCounter = 0;
+  var currentTileSum = columnLength-1;
   for(i=0; i <=amountTiles; i++) {
 
     var tile = new Tile(i);
-    
+    tile.setXPosition(xCounter);
+    tile.setYPosition(yCounter);
+    if(evenColumn == true) {
+      if(i == 0 || (i%currentTileSum) != 0) {
+        xCounter = xCounter+40;
+      } else {
+        xCounter = 20;
+        yCounter = yCounter+34;
+        evenColumn = false;
+        currentTileSum = currentTileSum+(columnLength-1);
+      }
+    } else {
+      if((i%currentTileSum) != 0) {
+        xCounter = xCounter+40;
+      } else {
+        xCounter = 0;
+        yCounter = yCounter+34;
+
+        evenColumn = true;
+        currentTileSum = currentTileSum+columnLength;
+      }
+    }
+
     random = Math.floor(Math.random() * 6);
     tile.setTerrainDifficulty(random);
 
@@ -1608,7 +1637,7 @@ function summonPlayers() {
 
     } (i), timeSummonPlayers);
 
-  }
+}
 }
 
 ////////////////////////////////////////
@@ -1765,7 +1794,7 @@ function EXPGain (gainedEXP) {
 
     }
 
-function LevelUp() {
+    function LevelUp() {
   // $("#LvlUpMarker").css("visibility", "hidden"); CLIENT(1)
   // $("#lvl").css("visibility", "visible"); CLIENT(1)
   io.sockets.emit('1');
@@ -2328,10 +2357,9 @@ function healPlayer() {
 
     //HealingPoints abziehen
     currentPlayer.setPlayerHealPoints(currentHealPoints-1);
+  } else { 
+    io.sockets.emit('62', {pInput: "no heal points left or already healed!", pTime: 0});
   }
-
-  else { io.sockets.emit('62', {pInput: "no heal points left or already healed!", pTime: 0});
-
   //Änderung sichtbar machen
   //updateCharSheet(); CLIENT(52)
   var cP = AllPlayers[currentPlayerNumber];
@@ -2345,8 +2373,6 @@ function healPlayer() {
     cPPlayerXStrikePoints: cP.getPlayerXStrikePoints(), cPPlayerXStrikePointsMax: cP.getPlayerXStrikePointsMax(), 
     cPPlayerMovementPoints: cP.getPlayerMovementPoints(), cPPlayerMovementPointsMax: cP.getPlayerMovementPointsMax(), 
     cPPlayerLvl: cP.getPlayerLvl(), cPPlayerEXP: cP.getPlayerEXP()});
-
-  }
 }
 
 
@@ -2428,8 +2454,9 @@ if(stats[18] > 0 || stats[19] > 0) {
 
           if(stats[18] == 0 && stats[19] == 0) {updateStats(stats); 
             // $("#lvl").css("visibility", "hidden"); CLIENT(72)
-            io.sockets.emit('72');
-            blockAction();}
+            io.sockets.emit('77');
+            blockAction();
+          }
 
         }
       }
@@ -2453,12 +2480,12 @@ if(stats[18] > 0 || stats[19] > 0) {
 
       if(stats[18] == 0 && stats[19] == 0) {updateStats(stats); 
         // $("#lvl").css("visibility", "hidden"); CLIENT(72)
-        io.sockets.emit('72');
+        io.sockets.emit('77');
         blockAction();}
 
-    }
+      }
+    } 
   } 
-} 
 
 
 
@@ -2759,21 +2786,61 @@ function fight(status){
         //Falls der Spieler gewonnen hat, wird Spielfigur bewegt
         //Die Variablen sind global definiert und ändern sich mit Aufruf der Funktion checkClickedTile
         //(Also bei jedem Klick für eine Bewegung)
-    initMovePlayer(idClickedTile, clickedTile);
+        initMovePlayer(idClickedTile, clickedTile);
         //Animation zeigen bei Sieg
     // showFieldWinAnimation(clickedTile); CLIENT(67)
     io.sockets.emit('67', {pXPosition: clickedTile.getXPosition(), pYPosition: clickedTile.getYPosition()});
         //Dem Spieler die erhaltenen EXP gutschreiben
-    setTimeout(function(){EXPGain(exp);}, 2500);
+        setTimeout(function(){EXPGain(exp);}, 2500);
         //Der Kachel sagen, dass sie nun kein Monster mehr hat
-    clickedTile.setHasMonsters(false);
+        clickedTile.setHasMonsters(false);
 
       }
     }
 
+function activateTracking () {
+
+  //aktueller Spieler
+  currentPlayer = AllPlayers[currentPlayerNumber];
+  //Tracking-Ability des aktuellen Spielers
+  currentTrack = currentPlayer.getPlayerTrackingPoints();
+  //Maximales Tracking des aktuellen Spielers
+  currentTrackMax = currentPlayer.getPlayerTrackingPointsMax();
+
+  activeTrack = currentPlayer.getPlayerActiveTracking();
+
+  //Falls noch TrackingPoints verf¸gbar
+  if(currentTrack > 0) {
+
+        //ActiveTracking des Spielers erhˆhen
+        activeTrack = activeTrack+1;
+        currentPlayer.setPlayerActiveTracking(activeTrack);
+
+        //TrackingPoints abziehen
+        currentPlayer.setPlayerTrackingPoints(currentTrack-1);
+
+      }
+
+  else { alert("no tracking points!")}
+
+  //ƒnderung sichtbar machen
+  //updateCharSheet(); CLIENT(52)
+  var cP = AllPlayers[currentPlayerNumber];
+  io.sockets.emit('52', {cPPlayerSword: cP.getPlayerSword(), cPPlayerSwordDmg: cP.getPlayerSwordDmg(), 
+    cPPlayerBow: cP.getPlayerBow(), cPPlayerBowDmg: cP.getPlayerBowDmg(), 
+    cPPlayerMagic: cP.getPlayerMagic(), cPPlayerMagicDmg: cP.getPlayerMagicDmg(), 
+    cPPlayerLife: cP.getPlayerLife(), cPPlayerLifeMax: cP.getPlayerLifeMax(), 
+    cPPlayerHealPoints: cP.getPlayerHealPoints(), cPPlayerHealPointsMax: cP.getPlayerHealPointsMax(), 
+    cPPlayerBoost: cP.getPlayerBoost(), cPPlayerBoostMax: cP.getPlayerBoostMax(), 
+    cPPlayerTrackingPoints: cP.getPlayerTrackingPoints(), cPPlayerTrackingPointsMax: cP.getPlayerTrackingPointsMax(), 
+    cPPlayerXStrikePoints: cP.getPlayerXStrikePoints(), cPPlayerXStrikePointsMax: cP.getPlayerXStrikePointsMax(), 
+    cPPlayerMovementPoints: cP.getPlayerMovementPoints(), cPPlayerMovementPointsMax: cP.getPlayerMovementPointsMax(), 
+    cPPlayerLvl: cP.getPlayerLvl(), cPPlayerEXP: cP.getPlayerEXP()});
+}
 
 
-    function checkTrackingAbility () {
+
+function checkTrackingAbility () {
       currentPlayer = AllPlayers[currentPlayerNumber];
       curTrack = currentPlayer.getPlayerActiveTracking();
       temp = 0;
@@ -2886,12 +2953,12 @@ function selectDB(sql){
   connection.connect();
   
   connection.query(sql, function(err, rows, fields) {
-      if (err) throw err;
-      
-      for (var i in rows) {
-          setName(rows[i].name,i);
-          setPassword(rows[i].password,i);
-      }
+    if (err) throw err;
+
+    for (var i in rows) {
+      setName(rows[i].name,i);
+      setPassword(rows[i].password,i);
+    }
   });
   connection.end();
 }
@@ -2901,12 +2968,12 @@ function select_Monster_DB(sql){
   connection.connect();
   
   connection.query(sql, function(err, rows, fields) {
-      if (err) throw err;
-      
-      for (var i in rows) {
-          setName(rows[i].name,i);
-          setPassword(rows[i].password,i);
-      }
+    if (err) throw err;
+
+    for (var i in rows) {
+      setName(rows[i].name,i);
+      setPassword(rows[i].password,i);
+    }
   });
   connection.end();
 }
@@ -2916,13 +2983,13 @@ function insertDB(sql){
   connection.connect();
   
   connection.query(sql, function(err, rows, fields) {
-      if (err) 
-      {
-        setQueryCheck(false);
-        setQueryError(err);
-        throw err;
-      }
-      else
+    if (err) 
+    {
+      setQueryCheck(false);
+      setQueryError(err);
+      throw err;
+    }
+    else
       { setQueryCheck(true); }
   });
   connection.end();
@@ -2932,48 +2999,48 @@ function checkFalseInsertReg(insert) {
   var check = false;
   var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   if(insert.e=="")
-  { return true; }
+    { return true; }
   if(!filter.test(insert.e)) 
-  { return true; }  
+    { return true; }  
   if(insert.p1=="" || insert.p2=="")
-  { return true; }
+    { return true; }
   if(insert.p1 != insert.p2)
-  { return true; }
+    { return true; }
   if(insert.u=="")
-  { return true; }
+    { return true; }
 
   return check;
 }
 
 function checkFalseInsertLogin(insert) {
   var check = false;
- 
+
   if(insert.u=="")
-  { return true; }
+    { return true; }
   if(insert.p=="")
-  { return true; }
+    { return true; }
 
   return check;
 }
 
 function setName(name,i) {
-    Username[i]=name;
+  Username[i]=name;
 }
 
 function getName(i) {
-    return Username[i];
+  return Username[i];
 }
 
 function setPassword(password,i) {
-    Password[i]=password;
+  Password[i]=password;
 }
 
 function getPassword(i) {
-    return Password[i];
+  return Password[i];
 }
 
 function getDataCount() {
-    return Data.length;
+  return Data.length;
 }
 
 function setQueryCheck(check){

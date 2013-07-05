@@ -567,7 +567,7 @@ function bewegeRahmen(param){
 }
 
 function startFight(param) {
-  hideMonsterChooser()
+  hideMonsterChooser();
   setTimeout(function() {
 
     metalClashSound();
@@ -911,7 +911,7 @@ $(document).ready(function(){
 
   var allButtonsMonsterDifficulty = $(".buttons_Monster_Difficulty");
 
-  allButtonsMonsterDifficulty.mouseenter(function() {
+  /*allButtonsMonsterDifficulty.mouseenter(function() {
 
     switch(this.id) {
 
@@ -969,7 +969,13 @@ $(document).ready(function(){
 
     }
 
-  });
+  });*/
+
+  allButtonsMonsterDifficulty.click(function() {
+
+      clixxx('2000');
+
+    });
 });
 
 
@@ -1013,13 +1019,7 @@ function showEasyKonfig() {
       }
 
     });
-
-    allButtonsMonsterDifficulty.click(function() {
-
-      clixxx('2000', {pDifficulty: this.id});
-
-    });
-  })
+  });
 }
 
 function showModerateKonfig() {
@@ -1072,13 +1072,7 @@ function showModerateKonfig() {
       }
 
     });
-
-    allButtonsMonsterDifficulty.click(function() {
-
-      clixxx('2000', {pDifficulty: this.id});
-
-    });
-  })
+ });
 }
 
 function showStrongKonfig() {
@@ -1141,13 +1135,7 @@ function showStrongKonfig() {
       }
 
     });
-
-    allButtonsMonsterDifficulty.click(function() {
-
-     clixxx('2000', {pDifficulty: this.id});
-
-   });
-  })
+  });
 }
 
 function showInsaneKonfig() {
@@ -1220,13 +1208,7 @@ function showInsaneKonfig() {
       }
 
     });
-
-    allButtonsMonsterDifficulty.click(function() {
-
-      clixxx('2000', {pDifficulty: this.id});
-
-    });
-  })
+  });
 }
 
 function visibilitySwitcher(element1,element2) {

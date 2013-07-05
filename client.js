@@ -337,6 +337,11 @@ socket.on('72',function(anonym){
 	$("#blocker").css("visibility", "hidden");
 });
 
+//Server sendet EVENT 77
+socket.on('77',function(anonym){
+	$("#lvl").css("visibility", "hidden");
+});
+
 //Server sendet EVENT 73
 socket.on('73',function(anonym){
 	$("#blocker").css("visibility", "visible");
