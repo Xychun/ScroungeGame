@@ -179,7 +179,7 @@ function showMovementPhaseAnimation(param) {
       return function() {
 
         var movementMarker = document.createElement("div");
-        movementMarker.innerHTML = param.pCurrentPlayerName+" - YOUR TURN!";
+        movementMarker.innerHTML = "Player "+param.pCurrentPlayerNumber+" - YOUR TURN!";
           //notwendig, damit alles VOR dem Spielfeld angezeigt wird.
           movementMarker.style.zIndex = "2";
           movementMarker.className = "phaseMarker";

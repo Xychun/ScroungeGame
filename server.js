@@ -1564,7 +1564,7 @@ function initshowMovementPhaseAnimation(){
   initChangePlayer();
   resetMovementRange();
   //showMovementPhaseAnimation(); - CLIENT(0)
-  io.sockets.emit('0', {pCurrentPlayerName: AllPlayers[currentPlayerNumber].getPlayerName()});
+  io.sockets.emit('0', {pCurrentPlayerNumber: currentPlayerNumber });
 }
 
 ///////////////////// END showMovementPhaseAnimation ////////////////////////////////////
