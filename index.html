@@ -4,18 +4,13 @@
 <head>
 	<title> Webtechnologie - Rune Master - Prototyp </title>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="style_field_char_fight.css">
-	<link rel="stylesheet" href="style_charSheet.css">
-	<link rel="stylesheet" href="style_kampf.css">
+	<link rel="stylesheet" href="stylesheet.css">
 	<!-- async sorgt dafür, dass js-Datei geladen wird ohne das Laden der HTML-Seite zu unterbrechen-->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="jquery.easing.min.js"></script>
-	<script src="functions_field_char_fight_11-05-1941.js" charset="utf-8"> </script>		
-	<script src="charSheet_jq-functions.js"></script>
-
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" async></script>
+	<script src="jquery.easing.min.js" async></script>
+	<script src="client.js" charset="utf-8" async></script>		
 	<!-- NODE JS -->
-	<script src="http://localhost:9000/socket.io/socket.io.js"></script>
-	<script src="client.js"></script>
+	<script src="http://localhost:9000/socket.io/socket.io.js" async></script>
 </head>
 
 <body onload="document.getElementById('reihenAnzahl').value='', document.getElementById('monsterAnzahl').value='', document.getElementById('reihenLänge').value=''" >	
