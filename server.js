@@ -1564,7 +1564,7 @@ function initshowMovementPhaseAnimation(){
   initChangePlayer();
   resetMovementRange();
   //showMovementPhaseAnimation(); - CLIENT(0)
-  io.sockets.emit('0', {pCurrentPlayerNumber: currentPlayerNumber});
+  io.sockets.emit('0', {pCurrentPlayerName: AllPlayers[currentPlayerNumber].getPlayerName()});
 }
 
 ///////////////////// END showMovementPhaseAnimation ////////////////////////////////////
@@ -1740,16 +1740,16 @@ function refreshRunes() {
   moveMax = AllPlayers[currentPlayerNumber].getPlayerMovementPointsMax();
 
   track = AllPlayers[currentPlayerNumber].getPlayerTrackingPoints();
-  trackMax = AllPlayers[currentPlayerNumber].getPlayerTrackingPoints();
+  trackMax = AllPlayers[currentPlayerNumber].getPlayerTrackingPointsMax();
 
   boost = AllPlayers[currentPlayerNumber].getPlayerBoost();
-  boostMax = AllPlayers[currentPlayerNumber].getPlayerBoost();
+  boostMax = AllPlayers[currentPlayerNumber].getPlayerBoostMax();
 
   xstrike = AllPlayers[currentPlayerNumber].getPlayerXStrikePoints();
   xstrikeMax = AllPlayers[currentPlayerNumber].getPlayerXStrikePointsMax();
 
   heal = AllPlayers[currentPlayerNumber].getPlayerHealPoints();
-  healMax = AllPlayers[currentPlayerNumber].getPlayerHealPoints();
+  healMax = AllPlayers[currentPlayerNumber].getPlayerHealPointsMax();
 
   //If-Abfragen, um nicht über Maximum zu gelangen, falls nach Addition des Refreshs der Wert über Max liegt, Wert nur auf Max setzen, nicht darüber
   if(move+5 <= moveMax) { AllPlayers[currentPlayerNumber].setPlayerMovementPoints(move+5); } else {AllPlayers[currentPlayerNumber].setPlayerMovementPoints(moveMax)}
@@ -2427,11 +2427,11 @@ var l_max_c;
 var me_attack_m=8;
 var me_dmg_m=1;
 
-var r_attack_m=11;
-var r_dmg_m=3;
+var r_attack_m=9;
+var r_dmg_m=2;
 
 var ma_attack_m=10;
-var ma_dmg_m=2;
+var ma_dmg_m=1;
 
 var l_min_m=10;
 var l_max_m=10;

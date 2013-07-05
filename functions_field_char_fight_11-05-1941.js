@@ -73,7 +73,7 @@ terrainsDifficulties[0] = new Image(); terrainsDifficulties[0].src = "Bilddaten/
 terrainsDifficulties[1] = new Image(); terrainsDifficulties[1].src = "Bilddaten/Spielfeld/Zwei.png";
 terrainsDifficulties[2] = new Image(); terrainsDifficulties[2].src = "Bilddaten/Spielfeld/Drei.png";
 terrainsDifficulties[3] = new Image(); terrainsDifficulties[3].src = "Bilddaten/Spielfeld/Vier.png";
-terrainsDifficulties[4] = new Image(); terrainsDifficulties[4].src = "Bilddaten/Spielfeld/Fünf.png";
+terrainsDifficulties[4] = new Image(); terrainsDifficulties[4].src = "Bilddaten/Spielfeld/Fuenf.png";
 terrainsDifficulties[5] = new Image(); terrainsDifficulties[5].src = "Bilddaten/Spielfeld/Sechs.png";
 
 // //Monster Icon
@@ -179,7 +179,7 @@ function showMovementPhaseAnimation(param) {
       return function() {
 
         var movementMarker = document.createElement("div");
-        movementMarker.innerHTML = "PLAYER "+param.pCurrentPlayerNumber+" - YOUR TURN!";
+        movementMarker.innerHTML = param.pCurrentPlayerName+" - YOUR TURN!";
           //notwendig, damit alles VOR dem Spielfeld angezeigt wird.
           movementMarker.style.zIndex = "2";
           movementMarker.className = "phaseMarker";
