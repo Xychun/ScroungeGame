@@ -275,7 +275,7 @@ io.sockets.on('connection', function (socket) {
   socket.on('5000',function(anonym){ // Username überprüfen
     sql = "SELECT name FROM user WHERE name="+mysql.escape(anonym.u);
 
-    selectDB(sql);
+    select_Login_DB(sql);
     setTimeout(function(){
 
       var check = false;
@@ -310,7 +310,7 @@ io.sockets.on('connection', function (socket) {
     {
       sql = "SELECT name,password FROM user WHERE name="+mysql.escape(anonym.u)+" AND password="+mysql.escape(anonym.p);
 
-      selectDB(sql); // Übergibt die Daten an die Datenbank-Funktion()
+      select_Login_DB(sql); // Übergibt die Daten an die Datenbank-Funktion()
       setTimeout(function(){
 
         var check = false;
@@ -364,6 +364,15 @@ io.sockets.on('connection', function (socket) {
 /////////////////////////////////
 // Globale Datenbank Variablen //
 /////////////////////////////////
+
+var maxCharacter = 4;
+var maxMeleeChars = 6;
+var maxRangedChars = 3;
+var maxMagicChars = 3;
+var maxMeleeMonsters = 7;
+var maxRangedMonsters = 3;
+var maxMagicMonsters = 2;
+
 
 var Username = new Array();
 var Password = new Array();
@@ -434,7 +443,8 @@ function Player(number) {
   this.playerName;
   this.playerImg;
   this.playerCharImg;
-  
+  this.playerImgNumber;
+
   this.isPlaying = false;
   var array = new Array(19);
   //Die Array-Positionen stellen die Punkte dar, die beim LvlUp verteilt werden dürfen
@@ -541,6 +551,18 @@ Player.prototype.setPlayerLvl = function(newPlayerLvl) {
 Player.prototype.getPlayerLvl = function() {
 
   return this.playerLvl;
+
+}
+
+Player.prototype.setPlayerImgNumber = function(newPlayerImgNumber) {
+
+  this.playerImgNumber = newPlayerImgNumber;
+
+}
+
+Player.prototype.getPlayerImgNumber = function() {
+
+  return this.playerImgNumber;
 
 }
 
@@ -1307,292 +1329,161 @@ timeSummonMonsters = 0;
 }
 
 
-function createPlayers() {
-
-  for(i = 1; i <= 4; i++) {
-
-    player = new Player(i);
-    // player.setPlayerImg(players[i].src);
-    stats = player.getPlayerStatsArray();
-
-    //Stats initialisieren
-    //Jeweils in Spielerklasse speichern und im Array eintragen, das charSheet zum Zeichnen benutzt
-    switch(i) {
-
-      case 1:
-
-      player.setPlayerName("SENJU");
-
-          //STATS
-          player.setPlayerSword(5); 
-          stats[0] = player.getPlayerSword();
-
-          player.setPlayerSwordDmg(4);
-          stats[1] = player.getPlayerSwordDmg();
-
-          player.setPlayerBow(3); 
-          stats[2] = player.getPlayerBow();
-
-          player.setPlayerBowDmg(1);
-          stats[3] = player.getPlayerBowDmg();
-
-          player.setPlayerMagic(3); 
-          stats[4] = player.getPlayerMagic();
-
-          player.setPlayerMagicDmg(1);
-          stats[5] = player.getPlayerMagicDmg();
-
-          player.setPlayerLife(25); 
-          stats[6] = player.getPlayerLife();
-
-          player.setPlayerLifeMax(25);
-          stats[7] = player.getPlayerLifeMax();
-
-
-          //RUNES
-
-          player.setPlayerHealPoints(5); 
-          stats[8] = player.getPlayerHealPoints();
-
-          player.setPlayerHealPointsMax(5);
-          stats[9] = player.getPlayerHealPointsMax();
-
-          player.setPlayerBoost(1); 
-          stats[10] = player.getPlayerBoost();
-
-          player.setPlayerBoostMax(1);
-          stats[11] = player.getPlayerBoostMax();
-
-          player.setPlayerTrackingPoints(5); 
-          stats[12] = player.getPlayerTrackingPoints();
-
-          player.setPlayerTrackingPointsMax(5);
-          stats[13] = player.getPlayerTrackingPointsMax();
-
-          player.setPlayerXStrikePoints(1); 
-          stats[14] = player.getPlayerXStrikePoints();
-
-          player.setPlayerXStrikePointsMax(1);
-          stats[15] = player.getPlayerXStrikePointsMax();
-
-          player.setPlayerMovementPoints(10); 
-          stats[16] = player.getPlayerMovementPoints();
-
-          player.setPlayerMovementPointsMax(10);
-          stats[17] = player.getPlayerMovementPointsMax();
-
-          AllPlayers[i] = player;
-
-          break;
-
-          case 2:
-
-          player.setPlayerName("MISCHA");
-
-          //STATS       
-          player.setPlayerSword(3); 
-          stats[0] = player.getPlayerSword();
-
-          player.setPlayerSwordDmg(3);
-          stats[1] = player.getPlayerSwordDmg();
-
-          player.setPlayerBow(3); 
-          stats[2] = player.getPlayerBow();
-
-          player.setPlayerBowDmg(3);
-          stats[3] = player.getPlayerBowDmg();
-
-          player.setPlayerMagic(3); 
-          stats[4] = player.getPlayerMagic();
-
-          player.setPlayerMagicDmg(3);
-          stats[5] = player.getPlayerMagicDmg();
-
-          player.setPlayerLife(15); 
-          stats[6] = player.getPlayerLife();
-
-          player.setPlayerLifeMax(15);
-          stats[7] = player.getPlayerLifeMax();
-
-
-          //RUNES
-
-          player.setPlayerHealPoints(5); 
-          stats[8] = player.getPlayerHealPoints();
-
-          player.setPlayerHealPointsMax(5);
-          stats[9] = player.getPlayerHealPointsMax();
-
-          player.setPlayerBoost(1); 
-          stats[10] = player.getPlayerBoost();
-
-          player.setPlayerBoostMax(1);
-          stats[11] = player.getPlayerBoostMax();
-
-          player.setPlayerTrackingPoints(5); 
-          stats[12] = player.getPlayerTrackingPoints();
-
-          player.setPlayerTrackingPointsMax(5);
-          stats[13] = player.getPlayerTrackingPointsMax();
-
-          player.setPlayerXStrikePoints(1); 
-          stats[14] = player.getPlayerXStrikePoints();
-
-          player.setPlayerXStrikePointsMax(1);
-          stats[15] = player.getPlayerXStrikePointsMax();
-
-          player.setPlayerMovementPoints(10); 
-          stats[16] = player.getPlayerMovementPoints();
-
-          player.setPlayerMovementPointsMax(10);
-          stats[17] = player.getPlayerMovementPointsMax();
-
-          AllPlayers[i] = player;
-
-          break;
-
-          case 3:
-
-          player.setPlayerName("JULIAN");
-
-          //STATS       
-          player.setPlayerSword(2); 
-          stats[0] = player.getPlayerSword();
-
-          player.setPlayerSwordDmg(1);
-          stats[1] = player.getPlayerSwordDmg();
-
-          player.setPlayerBow(1); 
-          stats[2] = player.getPlayerBow();
-
-          player.setPlayerBowDmg(3);
-          stats[3] = player.getPlayerBowDmg();
-
-          player.setPlayerMagic(6); 
-          stats[4] = player.getPlayerMagic();
-
-          player.setPlayerMagicDmg(5);
-          stats[5] = player.getPlayerMagicDmg();
-
-          player.setPlayerLife(10); 
-          stats[6] = player.getPlayerLife();
-
-          player.setPlayerLifeMax(10);
-          stats[7] = player.getPlayerLifeMax();
-
-
-          //RUNES
-
-          player.setPlayerHealPoints(5); 
-          stats[8] = player.getPlayerHealPoints();
-
-          player.setPlayerHealPointsMax(5);
-          stats[9] = player.getPlayerHealPointsMax();
-
-          player.setPlayerBoost(1); 
-          stats[10] = player.getPlayerBoost();
-
-          player.setPlayerBoostMax(1);
-          stats[11] = player.getPlayerBoostMax();
-
-          player.setPlayerTrackingPoints(5); 
-          stats[12] = player.getPlayerTrackingPoints();
-
-          player.setPlayerTrackingPointsMax(5);
-          stats[13] = player.getPlayerTrackingPointsMax();
-
-          player.setPlayerXStrikePoints(1); 
-          stats[14] = player.getPlayerXStrikePoints();
-
-          player.setPlayerXStrikePointsMax(1);
-          stats[15] = player.getPlayerXStrikePointsMax();
-
-          player.setPlayerMovementPoints(10); 
-          stats[16] = player.getPlayerMovementPoints();
-
-          player.setPlayerMovementPointsMax(10);
-          stats[17] = player.getPlayerMovementPointsMax();
-
-          AllPlayers[i] = player;
-
-          break;
-
-          case 4:
-
-          player.setPlayerName("JACKY");
-
-          //STATS       
-          player.setPlayerSword(4); 
-          stats[0] = player.getPlayerSword();
-
-          player.setPlayerSwordDmg(1);
-          stats[1] = player.getPlayerSwordDmg();
-
-          player.setPlayerBow(6); 
-          stats[2] = player.getPlayerBow();
-
-          player.setPlayerBowDmg(5);
-          stats[3] = player.getPlayerBowDmg();
-
-          player.setPlayerMagic(2); 
-          stats[4] = player.getPlayerMagic();
-
-          player.setPlayerMagicDmg(1);
-          stats[5] = player.getPlayerMagicDmg();
-
-          player.setPlayerLife(20); 
-          stats[6] = player.getPlayerLife();
-
-          player.setPlayerLifeMax(20);
-          stats[7] = player.getPlayerLifeMax();
-
-
-          //RUNES
-
-          player.setPlayerHealPoints(5); 
-          stats[8] = player.getPlayerHealPoints();
-
-          player.setPlayerHealPointsMax(5);
-          stats[9] = player.getPlayerHealPointsMax();
-
-          player.setPlayerBoost(1); 
-          stats[10] = player.getPlayerBoost();
-
-          player.setPlayerBoostMax(1);
-          stats[11] = player.getPlayerBoostMax();
-
-          player.setPlayerTrackingPoints(5); 
-          stats[12] = player.getPlayerTrackingPoints();
-
-          player.setPlayerTrackingPointsMax(5);
-          stats[13] = player.getPlayerTrackingPointsMax();
-
-          player.setPlayerXStrikePoints(1); 
-          stats[14] = player.getPlayerXStrikePoints();
-
-          player.setPlayerXStrikePointsMax(1);
-          stats[15] = player.getPlayerXStrikePointsMax();
-
-          player.setPlayerMovementPoints(10); 
-          stats[16] = player.getPlayerMovementPoints();
-
-          player.setPlayerMovementPointsMax(10);
-          stats[17] = player.getPlayerMovementPointsMax();
-
-          AllPlayers[i] = player;
-
-          break;
-
-        }
-
-      }
-
-  //Start Movement Points von Spieler 1 übernehmen
-  currentMovementPoints = AllPlayers[1].getPlayerMovementPoints();
-  
+function setPlayerNames(p1,p2,p3,p4)
+{
+  AllPlayers[1].setPlayerName(p1);
+  AllPlayers[2].setPlayerName(p2);
+  AllPlayers[3].setPlayerName(p3);
+  AllPlayers[4].setPlayerName(p4);
 }
 
 
+function createPlayers() {
+
+  var connection = mysql.createConnection('mysql://user:123@localhost/runemastery');
+
+  connection.connect();
+
+    rnd1= Math.floor(Math.random() * maxCharacter + 1);
+
+    do
+    {
+    rnd2= Math.floor(Math.random() * maxCharacter + 1);
+    } while(rnd1==rnd2);
+    do
+    {
+    rnd3= Math.floor(Math.random() * maxCharacter + 1);
+    } while(rnd1==rnd3 || rnd2==rnd3);
+    do
+    {
+    rnd4= Math.floor(Math.random() * maxCharacter + 1);
+    } while(rnd1==rnd4 || rnd2==rnd4 || rnd3==rnd4);
+
+
+    sql = "SELECT mea,med,raa,rad,maa,mad,life,merama FROM `character` WHERE ID="+rnd1+" OR ID="+rnd2+" OR ID="+rnd3+" OR ID="+rnd4+" ORDER BY RAND()";
+
+    connection.query(sql, function(err, rows, fields) {
+      if (err) throw err;
+
+      var x=1;
+
+      for (var i in rows) {    
+
+    //Stats initialisieren
+    //Jeweils in Spielerklasse speichern und im Array eintragen, das charSheet zum Zeichnen benutzt
+          player = new Player(x);
+          stats = player.getPlayerStatsArray();
+
+          //STATS
+          player.setPlayerSword(rows[i].mea); 
+          stats[0] = player.getPlayerSword();
+
+          player.setPlayerSwordDmg(rows[i].med);
+          stats[1] = player.getPlayerSwordDmg();
+
+          player.setPlayerBow(rows[i].raa); 
+          stats[2] = player.getPlayerBow();
+
+          player.setPlayerBowDmg(rows[i].rad);
+          stats[3] = player.getPlayerBowDmg();
+
+          player.setPlayerMagic(rows[i].maa); 
+          stats[4] = player.getPlayerMagic();
+
+          player.setPlayerMagicDmg(rows[i].mad);
+          stats[5] = player.getPlayerMagicDmg();
+
+          player.setPlayerLife(rows[i].life); 
+          stats[6] = player.getPlayerLife();
+
+          player.setPlayerLifeMax(rows[i].life);
+          stats[7] = player.getPlayerLifeMax();
+
+          player.setPlayerImgNumber(getRndImg4Char(rows[i].merama));
+
+          //RUNES
+
+          player.setPlayerHealPoints(5); 
+          stats[8] = player.getPlayerHealPoints();
+
+          player.setPlayerHealPointsMax(5);
+          stats[9] = player.getPlayerHealPointsMax();
+
+          player.setPlayerBoost(1); 
+          stats[10] = player.getPlayerBoost();
+
+          player.setPlayerBoostMax(1);
+          stats[11] = player.getPlayerBoostMax();
+
+          player.setPlayerTrackingPoints(5); 
+          stats[12] = player.getPlayerTrackingPoints();
+
+          player.setPlayerTrackingPointsMax(5);
+          stats[13] = player.getPlayerTrackingPointsMax();
+
+          player.setPlayerXStrikePoints(1); 
+          stats[14] = player.getPlayerXStrikePoints();
+
+          player.setPlayerXStrikePointsMax(1);
+          stats[15] = player.getPlayerXStrikePointsMax();
+
+          player.setPlayerMovementPoints(10); 
+          stats[16] = player.getPlayerMovementPoints();
+
+          player.setPlayerMovementPointsMax(10);
+          stats[17] = player.getPlayerMovementPointsMax();
+
+          AllPlayers[x] = player;
+          x++;
+      }
+
+      currentMovementPoints = AllPlayers[1].getPlayerMovementPoints();
+
+    });
+ 
+  connection.end();
+
+}
+
+
+function getRndImg4Char(type){
+  var imgNumber;
+
+  if(type==1)
+  { maximum = maxMeleeChars }
+  else if(type==2)
+  { maximum = maxRangedChars }
+  else if(type==3)
+  { maximum = maxMagicChars }
+
+  var random= Math.floor(Math.random() * maximum + 1);
+
+  if (random<10)
+  { random = "0" + random; }
+
+  imgNumber = type + random;
+  return imgNumber;
+}
+
+function getRndImg4Monster(type){
+  var imgNumber;
+
+  if(type==1)
+  { maximum = maxMeleeMonsters }
+  else if(type==2)
+  { maximum = maxRangedMonsters }
+  else if(type==3)
+  { maximum = maxMagicMonsters }
+
+  var random= Math.floor(Math.random() * maximum + 1);
+
+  if (random<10)
+  { random = "0" + random; }
+
+  imgNumber = type + random;
+  
+  return imgNumber;
+}
 
 
 var timeSummonPlayers = 250
@@ -1723,7 +1614,7 @@ function initChangePlayer(){
   AllPlayers[currentPlayerNumber].setIsPlaying(true);
 
   //changePlayer() - CLIENT(51)
-  io.sockets.emit('51', {pCurrentPlayerNumber: currentPlayerNumber, currentPlayerName: AllPlayers[currentPlayerNumber].getPlayerName()});
+  io.sockets.emit('51', {pCurrentPlayerImgNumber: AllPlayers[currentPlayerNumber].getPlayerImgNumber(), currentPlayerName: AllPlayers[currentPlayerNumber].getPlayerName()});
 }
 
 ///////////////////// END changePlayer ////////////////////////////////////
@@ -1918,6 +1809,11 @@ function initField() {
   io.sockets.emit('41', {a: columnLength, b: amountTiles});
 
   createPlayers();
+  var player1 = "Micha";
+  var player2 = "Jules";
+  var player3 = "Senju";
+  var player4 = "Jacky";
+  setTimeout(function() { setPlayerNames(player1,player2,player3,player4); },300);
   //Nur durch diese Einschränkung fangen die Monster erst NACH der For-Schleife für die Kachelerzeugung an zu erscheinen
   //Ohne die Wait-Function fangen die Monster immer schon zeitgleich an aufzupoppen
   //Die Wartezeit errechnet sich aus der Zeit, die die Kacheln brauchen, um zu erscheinen. (5 pro Kachel)
@@ -2948,10 +2844,10 @@ function changeButtonsMonsterChooser(trackResult) {
 
 }
 
-function selectDB(sql){
+function select_Login_DB(sql){
   var connection = mysql.createConnection('mysql://user:123@localhost/runemastery');
   connection.connect();
-  
+
   connection.query(sql, function(err, rows, fields) {
     if (err) throw err;
 

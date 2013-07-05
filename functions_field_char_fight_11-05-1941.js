@@ -459,8 +459,8 @@ function showGameStartAnimation () {
 //Anzeigeelemente laden
 function changePlayer(param){
   //Spielerbild wechseln
-  document.images.charImg.src = "Bilddaten/CharSheet/Spieler"+param.pCurrentPlayerNumber+".jpg";
-  document.images.charImg2.src = "Bilddaten/CharSheet/Spieler"+param.pCurrentPlayerNumber+".jpg";
+  document.images.charImg.src = "Bilddaten/Characters/"+param.pCurrentPlayerImgNumber+".jpg";
+  document.images.charImg2.src = "Bilddaten/Characters/"+param.pCurrentPlayerImgNumber+".jpg";
   //Spielername wechseln
   document.getElementById('playerName').innerHTML = param.currentPlayerName;
   document.getElementById('playerName2').innerHTML = param.currentPlayerName;
